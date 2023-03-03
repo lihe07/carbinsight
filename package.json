@@ -1,0 +1,33 @@
+{
+  "name": "carbinsight-start",
+  "scripts": {
+    "dev": "solid-start dev",
+    "build": "solid-start build",
+    "start": "http-server ./dist/public -b -g -c 31536000",
+    "format": "prettier --write ."
+  },
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "@mdx-js/rollup": "^2.2.1",
+    "@motionone/solid": "^10.15.5",
+    "@solid-primitives/i18n": "^1.2.0",
+    "@solidjs/meta": "^0.28.2",
+    "@solidjs/router": "^0.7.0",
+    "blaze-slider": "^1.9.1",
+    "chartist": "^1.3.0",
+    "d3": "^7.8.2",
+    "prettier": "^2.8.4",
+    "solid-js": "^1.6.11",
+    "solid-mdx": "^0.0.6",
+    "solid-start": "^0.2.21",
+    "solid-start-node": "^0.2.19",
+    "solid-start-static": "^0.2.21",
+    "undici": "^5.15.1",
+    "unocss": "^0.49.7",
+    "vite": "3"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
