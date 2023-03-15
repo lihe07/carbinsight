@@ -3,7 +3,7 @@ import "blaze-slider/dist/blaze.css";
 import NarrowArticleBlock from "./NarrowArticleBlock";
 
 import cover from "@/assets/images/ba.jpg";
-import { For } from "solid-js";
+import { For, onCleanup, onMount } from "solid-js";
 import Section from "@/components/Section";
 
 const articles = [
@@ -60,9 +60,11 @@ const Cover = (props) => {
 };
 
 export default () => {
-  let slider;
-  function useBlazeSlider(el) {
-    slider = new BlazeSlider(el, {
+  let el;
+
+  onMount(() => {
+    console.log("useBlazeSlider", el);
+    const slider = new BlazeSlider(el, {
       all: {
         loop: false,
         slidesToShow: 2,
@@ -71,11 +73,16 @@ export default () => {
         slidesToShow: 1,
       },
     });
-  }
+
+    return () => {
+      console.log("onCleanup");
+      slider.destroy();
+    };
+  });
 
   return (
     <Section animOnly={true} class="relative">
-      <div class="w-full blaze-slider" ref={useBlazeSlider}>
+      <div class="w-full blaze-slider" ref={el}>
         <div class="blaze-container">
           <div class="blaze-track-container !overflow-visible">
             <div class="blaze-track">

@@ -14,6 +14,10 @@ const routes = [
     name: "articles.title",
     path: "/articles",
   },
+  {
+    name: "ranking.title",
+    path: "/ranking",
+  },
 ];
 
 export default () => {
