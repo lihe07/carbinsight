@@ -1,4 +1,4 @@
-import { BlazeSlider } from "./BlazeSlider";
+import BlazeSlider from "./BlazeSlider";
 import "blaze-slider/dist/blaze.css";
 import NarrowArticleBlock from "./NarrowArticleBlock";
 
@@ -66,6 +66,9 @@ export default () => {
       all: {
         loop: false,
         slidesToShow: 2,
+      },
+      "(max-width: 768px)": {
+        slidesToShow: 1,
       },
     });
   }

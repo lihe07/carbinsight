@@ -6,30 +6,29 @@ import Articles from "@/components/index/Articles";
 
 import Section from "@/components/Section";
 import AboutUs from "@/components/index/AboutUs";
-import { Head, Meta, Title } from "solid-start";
+import { Meta, Title } from "solid-start";
+import { useI18n } from "@solid-primitives/i18n";
 
 export default () => {
+  const t = useI18n()[0];
   return (
-    <>
-      <Head>
-        <Title>Carbinsight - 首页</Title>
-        <Meta name="description" content="Carbinsight" />
-        <Meta name="keywords" content="" />
-      </Head>
-      <div class="overflow-hidden">
-        <FirstScreen />
-        <Ranking />
-        {/* Future: */}
-        {/* <Prediction /> */}
-        <Section animOnly={true}>
-          <AnimatedWave type="immediate" />
-          <div class="dark:bg-true-gray-8 light:bg-teal-9 transition-colors-300">
-            <TakeAction />
-            <Articles />
-          </div>
-        </Section>
-        <AboutUs />
-      </div>
-    </>
+    <div class="overflow-hidden">
+      <Title>Carbinsight - {t("index.title")}</Title>
+      <Meta name="description" content="Carbinsight" />
+      <Meta name="keywords" content="" />
+
+      <FirstScreen />
+      <Ranking />
+      {/* Future: */}
+      {/* <Prediction /> */}
+      <Section animOnly={true}>
+        <AnimatedWave type="immediate" />
+        <div class="dark:bg-true-gray-8 light:bg-teal-9 transition-colors-300">
+          <TakeAction />
+          <Articles />
+        </div>
+      </Section>
+      <AboutUs />
+    </div>
   );
 };

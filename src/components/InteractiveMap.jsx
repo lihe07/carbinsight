@@ -1,7 +1,7 @@
 import { createEffect, onMount } from "solid-js";
 import * as d3 from "d3";
 import { useAppContext } from "../AppContext";
-import "./InteractiveMap.css";
+import style from "./InteractiveMap.module.css";
 
 const api =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
@@ -200,7 +200,10 @@ export default (props) => {
 
   return (
     <div
-      claas="w-full max-w-full overflow-hidden md:scale-100 scale-50"
+      class={
+        "w-full max-w-full overflow-hidden md:scale-100 scale-50 " +
+        style.container
+      }
       style={{ height: "100%" }}
       ref={container}
     />

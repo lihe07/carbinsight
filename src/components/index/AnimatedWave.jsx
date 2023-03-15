@@ -40,7 +40,7 @@ export default (props) => {
       class="w-full h-30vw max-h-70 relative overflow-hidden"
     >
       <Motion.div
-        class="w-150% h-full absolute transition-colors dark:color-true-gray-8 light:color-teal-9"
+        class="w-150% h-full absolute transition-colors-300 dark:color-true-gray-8 light:color-teal-9"
         animate={{ left: left() + "%" }}
         transition={{ duration: duration(), ease: "easeOut" }}
       >

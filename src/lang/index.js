@@ -24,6 +24,10 @@ export default {
       footer: {
         otherOrgs: "其他组织",
       },
+      title: "首页",
+    },
+    articles: {
+      title: "文章",
     },
     codes: codesZh,
     otherName: "English",
@@ -50,6 +54,10 @@ export default {
       footer: {
         otherOrgs: "Other Organizations",
       },
+      title: "Home",
+    },
+    articles: {
+      title: "Articles",
     },
     codes: codesEn,
     otherName: "中文",

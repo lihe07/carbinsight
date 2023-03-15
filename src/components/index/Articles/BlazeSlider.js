@@ -1,4 +1,4 @@
-export const BlazeSlider = (function () {
+export default (function () {
   "use strict";
   const t = "start";
   function e(t, e, n) {

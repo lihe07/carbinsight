@@ -32,6 +32,7 @@ export default () => {
     video.pause();
     setIsPlaying(false);
     setCurrent(current() + 1 > 3 ? 0 : current() + 1);
+    console.log("next", current());
   }
 
   const videoCache = {};
@@ -39,14 +40,17 @@ export default () => {
 
   async function updateCurrentBlob() {
     const url = videoList[current()];
-    if (videoCache[url]) return videoCache[url];
+    if (videoCache[url]) {
+      setCurrentBlob(videoCache[url]);
+      return;
+    }
 
     // Load to blob
+
     const response = await fetch(url, {
       mode: "cors",
       cache: "force-cache",
     });
-    console.log(response);
     const blob = await response.blob();
     const video = URL.createObjectURL(blob);
     videoCache[url] = video;
@@ -99,19 +103,19 @@ export default () => {
             if (promise !== undefined) {
               promise.catch((e) => {
                 console.log("Fallback to autoplay", e);
-                setTimeout(() => setLoading(true), (duration - 0.35) * 1000);
-                setTimeout(next, duration * 1000);
               });
             }
+
+            setTimeout(() => setLoading(true), duration * 1000 - 350);
+            setTimeout(next, duration * 1000);
           }}
-          onTimeUpdate={() => {
-            if (video.currentTime >= duration) {
-              next();
-            }
-            if (duration - video.currentTime <= 0.35) {
-              setLoading(true);
-            }
-          }}
+          // onTimeUpdate={() => {
+          //   if (duration - video.currentTime <= 0.35) {
+          //     // setLoading(true);
+          //   }
+          //   if (duration - video.currentTime <= 0.1) {
+          //   }
+          // }}
           class="w-full h-full object-cover"
         />
       </Suspense>

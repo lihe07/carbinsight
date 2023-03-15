@@ -7,11 +7,11 @@ import logo from "../assets/images/logo.svg";
 
 const routes = [
   {
-    name: "Home",
+    name: "index.title",
     path: "/",
   },
   {
-    name: "Articles",
+    name: "articles.title",
     path: "/articles",
   },
 ];
@@ -76,7 +76,7 @@ export default () => {
                     class="w-25 h-12 flex items-center justify-center decoration-none color-white"
                     href={route.path}
                   >
-                    {route.name}
+                    {t(route.name)}
                   </A>
                 </div>
               )}

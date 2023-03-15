@@ -1,4 +1,4 @@
-svg * {
+.container svg * {
   transition-property: color, background-color, border-color, outline-color,
     text-decoration-color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
