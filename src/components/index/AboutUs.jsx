@@ -3,7 +3,7 @@ import background from "../../assets/images/ba.jpg";
 import Section from "../../components/Section";
 import AnimatedWave from "./AnimatedWave";
 import CenterTitle from "../../components/CenterTitle";
-import { useI18n } from "@solid-primitives/i18n";
+import { useAppContext } from "@/AppContext";
 
 import avatar from "@/assets/images/avatar.jpg";
 
@@ -45,7 +45,7 @@ const Avatar = (props) => {
 };
 
 export default () => {
-  const t = useI18n()[0];
+  const { t } = useAppContext();
   return (
     <div
       class="bg-cover bg-center mt--1"

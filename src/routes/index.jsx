@@ -7,10 +7,10 @@ import Articles from "@/components/index/Articles";
 import Section from "@/components/Section";
 import AboutUs from "@/components/index/AboutUs";
 import { Meta, Title } from "solid-start";
-import { useI18n } from "@solid-primitives/i18n";
+import { useAppContext } from "@/AppContext";
 
 export default () => {
-  const t = useI18n()[0];
+  const { t } = useAppContext();
   return (
     <div class="overflow-hidden">
       <Title>Carbinsight - {t("index.title")}</Title>

@@ -6,10 +6,10 @@ import SideMenu from "./SideMenu";
 import logo from "../assets/images/logo.svg";
 
 const routes = [
-  {
-    name: "index.title",
-    path: "/",
-  },
+  // {
+  //   name: "index.title",
+  //   path: "/",
+  // },
   {
     name: "articles.title",
     path: "/articles",
@@ -21,8 +21,8 @@ const routes = [
 ];
 
 export default () => {
-  const [t] = useI18n();
-  const { switchLang, switchTheme, dark } = useAppContext();
+  const { t } = useAppContext();
+  const { switchLang, drySwitchLang, switchTheme, dark } = useAppContext();
 
   const [scroll, setScroll] = createSignal(false);
   const location = useLocation();
@@ -44,6 +44,8 @@ export default () => {
 
   useBeforeLeave(() => setShowSideMenu(false));
 
+  console.log("dark", dark(), "lang", t("otherName"));
+
   const line = "bg-white h-4px w-6 rounded transition-all-300";
   return (
     <header
@@ -56,7 +58,7 @@ export default () => {
           <A
             href="/"
             class="flex items-center transition-all decoration-none"
-            inactiveClass="op-80 hover:op-100 active:op-70 active:scale-98"
+            inactivClass="op-80 hover:op-100 active:op-70 active:scale-98"
             activeClass="op-100 "
             end={true}
           >
@@ -98,6 +100,7 @@ export default () => {
               switchLang();
               setTimeout(() => setIsCooling(false), 150);
             }}
+            id="otherName"
           >
             {t("otherName")}
           </span>
@@ -111,26 +114,21 @@ export default () => {
               setTimeout(() => setIsCooling(false), 150);
             }}
           >
-            <Show when={dark()}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            {dark() ? (
+              <svg viewBox="0 0 24 24" classList={{ hide: !dark() }}>
                 <path
                   d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5s5-2.24 5-5s-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0a.996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0a.996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41a.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41a.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"
                   fill="currentColor"
-                  style={{ "--darkreader-inline-fill": "currentColor" }}
-                  data-darkreader-inline-fill=""
                 />
               </svg>
-            </Show>
-            <Show when={!dark()}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            ) : (
+              <svg viewBox="0 0 24 24">
                 <path
                   d="M11.01 3.05C6.51 3.54 3 7.36 3 12a9 9 0 0 0 9 9c4.63 0 8.45-3.5 8.95-8c.09-.79-.78-1.42-1.54-.95A5.403 5.403 0 0 1 11.1 7.5c0-1.06.31-2.06.84-2.89c.45-.67-.04-1.63-.93-1.56z"
                   fill="currentColor"
-                  style={{ "--darkreader-inline-fill": "currentColor" }}
-                  data-darkreader-inline-fill=""
                 />
               </svg>
-            </Show>
+            )}
           </div>
         </div>
         <div

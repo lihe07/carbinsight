@@ -1,8 +1,8 @@
-import { useI18n } from "@solid-primitives/i18n";
 import logo from "@/assets/images/logo.svg";
+import { useAppContext } from "~/AppContext";
 
 export default () => {
-  const t = useI18n()[0];
+  const { t } = useAppContext();
   return (
     <div class="h-screen w-full flex color-white items-center justify-center">
       <div class="flex rounded-xl transition-colors-300 dark:bg-true-gray-8 light:bg-teal-7 p-10 items-center justify-center gap-5">

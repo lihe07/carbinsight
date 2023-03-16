@@ -2,6 +2,7 @@ import codes from "./codes.zh";
 
 export default {
   index: {
+    firstBlock: {},
     ranking: {
       title: "全国碳地图",
       description:

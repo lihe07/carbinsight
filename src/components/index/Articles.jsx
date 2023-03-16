@@ -7,14 +7,14 @@ import ArticlesCarousel from "./Articles/ArticlesCarousel";
 
 const map = [];
 
-import { useI18n } from "@solid-primitives/i18n";
+import { useAppContext } from "@/AppContext";
 
 export default () => {
-  const [t, { locale }] = useI18n();
+  const { t, lang } = useAppContext();
 
   const withOrg = () =>
     map.filter(
-      (item) => item.meta.language === locale() && item.meta.orgnization
+      (item) => item.meta.language === lang() && item.meta.orgnization
     );
 
   return (

@@ -21,7 +21,7 @@ export default () => {
             setTop("100%");
             setTimeout(
               () =>
-                document.getElementById("root").scrollTo({
+                window.scrollTo({
                   top: window.innerHeight,
                   behavior: "smooth",
                 }),
@@ -31,13 +31,11 @@ export default () => {
             setTimeout(() => setTop("0%"), 1000);
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg viewBox="0 0 24 24">
             <g fill="none">
               <path
                 d="M11.65 4.007l.1-.007a.75.75 0 0 1 .744.648l.007.102l-.001 12.696l3.22-3.221a.75.75 0 0 1 .976-.073l.084.072a.75.75 0 0 1 .073.977l-.072.084l-4.497 4.5a.75.75 0 0 1-.976.073l-.084-.073l-4.504-4.5a.75.75 0 0 1 .976-1.133l.084.072L11 17.442V4.75a.75.75 0 0 1 .65-.743l.1-.007l-.1.007z"
                 fill="currentColor"
-                style={{ "--darkreader-inline-fill": "currentColor" }}
-                data-darkreader-inline-fill=""
               />
             </g>
           </svg>

@@ -1,9 +1,4 @@
 import {
-  createI18nContext,
-  I18nContext,
-  useI18n,
-} from "@solid-primitives/i18n";
-import {
   createContext,
   createEffect,
   createSignal,
@@ -11,7 +6,15 @@ import {
   useContext,
 } from "solid-js";
 
-import lang from "./lang";
+import dict from "./lang";
+
+function deepReadObject(obj, path, defaultValue) {
+  const value = path
+    .trim()
+    .split(".")
+    .reduce((a, b) => (a ? a[b] : undefined), obj);
+  return value !== undefined ? value : defaultValue;
+}
 
 function defaultLang() {
   if (typeof window === "undefined") {
@@ -31,6 +34,10 @@ function defaultLang() {
 }
 
 function defaultTheme() {
+  if (typeof window === "undefined") {
+    return "light";
+  }
+
   let theme = localStorage.getItem("theme");
   if (["light", "dark"].includes(theme)) {
     return theme;
@@ -45,18 +52,21 @@ function defaultTheme() {
 const AppContext = createContext();
 
 export const AppContextProvider = (props) => {
-  const i18n = createI18nContext(lang, defaultLang());
-
-  const [dark, setDark] = createSignal(true);
+  const [dark, setDark] = createSignal(defaultTheme() === "dark");
+  const [lang, setLang] = createSignal(defaultLang());
 
   const value = {
-    lang: i18n[1].locale,
+    lang,
     dark,
+    t(key) {
+      return deepReadObject(dict[lang()], key, key);
+    },
     switchLang() {
-      const lang = i18n[1].locale() === "en" ? "zh" : "en";
-      localStorage.setItem("lang", lang);
-      i18n[1].locale(lang);
-      // setLocale(lang);
+      value.drySwitchLang();
+      localStorage.setItem("lang", lang());
+    },
+    drySwitchLang() {
+      setLang(lang() === "en" ? "zh" : "en");
     },
     switchTheme() {
       const theme = dark() ? "light" : "dark";
@@ -66,6 +76,22 @@ export const AppContextProvider = (props) => {
   };
 
   onMount(() => {
+    setLang(undefined);
+    setDark(undefined);
+
+    let i = 0;
+    const t = () => {
+      setLang(undefined);
+      setLang(defaultLang());
+      setDark(undefined);
+      setDark(defaultTheme() === "dark");
+      if (i < 5) {
+        i++;
+        setTimeout(t, 100);
+      }
+    };
+    t();
+
     createEffect(() => {
       document.body.classList.toggle("dark", dark());
       document.body.classList.toggle("light", !dark());
@@ -73,9 +99,7 @@ export const AppContextProvider = (props) => {
   });
 
   return (
-    <AppContext.Provider value={value}>
-      <I18nContext.Provider value={i18n}>{props.children}</I18nContext.Provider>
-    </AppContext.Provider>
+    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );
 };
 

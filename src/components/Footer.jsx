@@ -1,7 +1,7 @@
 import { For } from "solid-js";
-import { useI18n } from "@solid-primitives/i18n";
-import logo from "../assets/images/logo.svg";
-import Section from "../components/Section";
+import logo from "@/assets/images/logo.svg";
+import Section from "@/components/Section";
+import { useAppContext } from "@/AppContext";
 
 const orgs = [
   {
@@ -24,7 +24,7 @@ const OrgCard = (props) => {
 };
 
 export default () => {
-  const t = useI18n()[0];
+  const { t } = useAppContext();
   return (
     <footer class="w-full md:h-100 h-max light:bg-teal-7 dark:bg-true-gray-8 overflow-hidden transition">
       <Section class="flex items-center h-full box-border md:flex-row flex-col">

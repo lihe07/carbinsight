@@ -13,6 +13,7 @@ import {
 import { AppContextProvider } from "@/AppContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Transition from "@/components/Transition";
 
 import "@/root.css";
 import "uno.css";
@@ -34,12 +35,15 @@ export default function Root() {
             <AppContextProvider>
               <Suspense>
                 <Header></Header>
-                <main>
-                  <Routes>
-                    <FileRoutes />
-                  </Routes>
-                </main>
-                <Footer></Footer>
+
+                <Transition>
+                  <main>
+                    <Routes>
+                      <FileRoutes />
+                    </Routes>
+                  </main>
+                  <Footer></Footer>
+                </Transition>
               </Suspense>
             </AppContextProvider>
           </ErrorBoundary>

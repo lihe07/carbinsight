@@ -1,7 +1,5 @@
 import { For, createMemo, createSignal } from "solid-js";
 
-import { useI18n } from "@solid-primitives/i18n";
-
 import Card from "../../components/Card";
 import InteractiveMap from "../../components/InteractiveMap";
 import Section from "../../components/Section";
@@ -14,6 +12,7 @@ import Chart from "./Ranking/Chart";
 import data from "@/assets/data.csv?raw";
 
 import * as d3 from "d3";
+import { useAppContext } from "@/AppContext";
 
 function parser(raw) {
   console.log("Parsing data...");
@@ -73,7 +72,7 @@ function sort(data) {
 }
 
 export default () => {
-  const [t] = useI18n();
+  const { t } = useAppContext();
 
   const [collapseId, setCollapseId] = createSignal(0);
 

@@ -1,7 +1,7 @@
-import { useI18n } from "@solid-primitives/i18n";
+import { useAppContext } from "@/AppContext";
 
 export default (props) => {
-  const t = useI18n()[0];
+  const { t } = useAppContext();
   return (
     <div
       class="flex color-white h-20 w-full items-center px-5 box-border cursor-pointer op-80 hover:op-100 transition active:op-60 overflow-y-auto"
