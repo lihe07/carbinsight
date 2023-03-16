@@ -22,6 +22,7 @@
     "remark": "^14.0.2",
     "remark-frontmatter": "^4.0.1",
     "remark-html": "^15.0.2",
+    "showdown": "^2.1.0",
     "solid-js": "^1.6.11",
     "solid-mdx": "^0.0.6",
     "solid-start": "^0.2.23",

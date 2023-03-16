@@ -2,7 +2,7 @@ import Section from "@/components/Section";
 import avatar from "@/assets/images/avatar.jpg";
 import { useRouteData, Title } from "solid-start";
 
-import style from "./[id].module.css";
+import "./[id].css";
 
 import articleRouteData from "./[id].data";
 
@@ -20,14 +20,14 @@ function ContentArea(props) {
         srcset=""
       />
 
-      <div innerHTML={props.data?.content} class={style.container}></div>
+      <div innerHTML={props.data?.content} class="article-container"></div>
     </article>
   );
 }
 
 function Metadata(props) {
   return (
-    <div class="w-70 md:sticky top-30 h-max flex md:flex-col flex-row md:items-start items-center gap-1">
+    <div class="md:w-70 md:sticky top-30 h-max flex md:flex-col flex-row md:items-start items-center justify-between gap-1">
       <div class="flex items-center gap-3">
         <img
           src={avatar}

@@ -1,10 +1,12 @@
 import fs from "fs/promises";
 import yaml from "js-yaml";
-import { remark } from "remark";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkHtml from "remark-html";
+
+import showdown from "showdown";
 
 const dir = "articles";
+
+const converter = new showdown.Converter();
+converter.setFlavor("github");
 
 export async function parseArticle(id) {
   const list = await listArticles();
@@ -15,22 +17,15 @@ export async function parseArticle(id) {
     return null;
   }
 
-  const file = await fs.readFile(dir + "/" + article.file);
+  let file = await (await fs.readFile(dir + "/" + article.file)).toString();
+
+  // Remove frontmatter - only replace the first
+  file = file.split("---").slice(2).join("---");
 
   // Parse content
 
   return {
-    content: (
-      await remark({
-        allowDangerousHtml: true,
-      })
-        .use(remarkHtml, {
-          allowDangerousHtml: true,
-          allowDangerousCharacters: true,
-        })
-        .use(remarkFrontmatter)
-        .process(file)
-    ).toString(),
+    content: converter.makeHtml(file),
     ...article,
   };
 }
@@ -40,14 +35,12 @@ export async function listArticles() {
 
   files = files.filter((file) => file.endsWith(".md"));
 
-  const re = /---\s*([\s\S]*?)\s*---/g;
-
   files = await Promise.all(
     files.map(async (file) => {
       const [id, lang, ext] = file.split(".");
       // Read the file, parse frontmatter
       const meta = yaml.loadAll(
-        re.exec(await fs.readFile(dir + "/" + file))[0]
+        await (await fs.readFile(dir + "/" + file)).toString().split("---")[1]
       )[0];
 
       meta.date = meta.date.toLocaleDateString();
