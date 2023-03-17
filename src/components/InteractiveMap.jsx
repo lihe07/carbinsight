@@ -200,10 +200,7 @@ export default (props) => {
 
   return (
     <div
-      class={
-        "w-full max-w-full overflow-hidden md:scale-100 scale-50 " +
-        style.container
-      }
+      class={"w-full max-w-full " + style.container}
       style={{ height: "100%" }}
       ref={container}
     />

@@ -77,7 +77,8 @@ export default () => {
   const [collapseId, setCollapseId] = createSignal(0);
 
   const [currentLevel, setCurrentLevel] = createSignal("china");
-  const [currentYear, setCurrentYear] = createSignal(new Date().getFullYear());
+  // const [currentYear, setCurrentYear] = createSignal(new Date().getFullYear());
+  const [currentYear, setCurrentYear] = createSignal(2019);
 
   let res = parser(data);
 
