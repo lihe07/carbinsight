@@ -1,10 +1,5 @@
 import { createEffect, createSignal, on, Show, Suspense } from "solid-js";
 
-import video1 from "../../assets/videos/1.compressed.webm";
-import video2 from "../../assets/videos/2.compressed.webm";
-import video3 from "../../assets/videos/3.compressed.webm";
-import video4 from "../../assets/videos/4.compressed.webm";
-
 import logo from "../../assets/images/logo.svg";
 
 import FirstScreenBlock from "./FirstScreen/FirstScreenBlock";
@@ -12,14 +7,12 @@ import FirstScreenScroll from "./FirstScreen/FirstScreenScroll";
 
 const duration = 5; // Play for 5sec
 
-// const videoList = [
-//   "https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/774856163ff30c703a4f/1.compressed.webm",
-//   "https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/54241363ff3118a9b76/2.compressed.webm",
-//   "https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/24372663ff31261d7e7/3.compressed.webm",
-//   "https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/432204263ff3131a7e6a/4.compressed.webm",
-// ];
-
-const videoList = [video1, video2, video3, video4];
+const videoList = [
+  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843884944205312000.webm",
+  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014466.webm",
+  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014467.webm",
+  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014468.webm",
+];
 
 export default () => {
   const [current, setCurrent] = createSignal(0);
