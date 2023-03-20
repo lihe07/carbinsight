@@ -38,7 +38,7 @@ function resize(container, svg, g, transform) {
 
   if (!transform) {
     if (window.innerWidth < 768) {
-      g.attr("transform", `translate(${width / 2}, ${height / 2}) scale(0.8)`);
+      g.attr("transform", `translate(${width / 2}, ${height / 2}) scale(0.7)`);
     } else {
       g.attr("transform", `translate(${width / 2}, ${height / 2})`);
     }

@@ -30,6 +30,9 @@ export default {
   ranking: {
     title: "Ranking",
   },
+  map: {
+    title: "Map",
+  },
   notFound: {
     title: "Page Not Found",
     description: "This page does not exist",

@@ -1,6 +1,7 @@
 import Section from "@/components/Section";
 import avatar from "@/assets/images/avatar.jpg";
 import { useRouteData, Title } from "solid-start";
+import { useAppContext } from "@/AppContext";
 
 import "./[id].css";
 
@@ -11,7 +12,7 @@ export const routeData = articleRouteData;
 function ContentArea(props) {
   return (
     <article class="flex-1">
-      <h1 class="text-4xl font-bold mt-3">文章标题: {props.data?.title}</h1>
+      <h1 class="text-4xl font-bold mt-3">{props.data?.title}</h1>
 
       <img
         src={props.data?.cover}
@@ -57,14 +58,20 @@ function Metadata(props) {
 
 export default () => {
   const data = useRouteData();
+
+  const { lang } = useAppContext();
+
+  const article = () =>
+    data() && (data().find((article) => article.lang === lang()) || data()[0]);
+
   return (
     <div class="pt-20 color-white">
       <Title>Carbinsight - 文章</Title>
 
       <Section>
         <div class="flex gap-10 md:flex-row flex-col-reverse ">
-          <ContentArea data={data()}></ContentArea>
-          <Metadata data={data()}></Metadata>
+          <ContentArea data={article()}></ContentArea>
+          <Metadata data={article()}></Metadata>
         </div>
       </Section>
     </div>

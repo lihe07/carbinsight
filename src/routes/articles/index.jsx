@@ -79,7 +79,7 @@ const Input = (props) => {
     <input
       type="text"
       placeholder="Search"
-      class="dark:bg-true-gray-8 dark:outline-true-gray-8 light:bg-teal-7 light:outline-teal-7 color-white border-none rounded-xl h-10 w-full outline-solid outline-2 op-80 hover:op-100 dark:focus:outline-true-gray-7 light:focus:outline-teal-6 focus:bg-op-0 focus:op-100 transition-all px-3 box-border tracking-wide placeholder-white"
+      class="dark:bg-true-gray-8 dark:outline-true-gray-8 light:bg-teal-7 light:outline-teal-7 color-white border-none rounded-xl h-10 w-full outline-solid outline-2 op-80 hover:op-100 dark:focus:outline-true-gray-7 light:focus:outline-teal-6 focus:bg-op-0 focus:op-100 transition-all px-3 box-border tracking-wide placeholder-white text-16px"
       onInput={(e) =>
         props.setCategory({
           name: {

@@ -11,23 +11,26 @@ converter.setFlavor("github");
 export async function parseArticle(id) {
   const list = await listArticles();
 
-  const article = list.find((a) => a.id === id);
+  const articles = list.filter((a) => a.id === id);
 
-  if (!article) {
+  if (articles.length === 0) {
     return null;
   }
 
-  let file = await (await fs.readFile(dir + "/" + article.file)).toString();
+  return await Promise.all(
+    articles.map(async (article) => {
+      let file = await (await fs.readFile(dir + "/" + article.file)).toString();
 
-  // Remove frontmatter - only replace the first
-  file = file.split("---").slice(2).join("---");
+      // Remove frontmatter - only replace the first
+      file = file.split("---").slice(2).join("---");
 
-  // Parse content
-
-  return {
-    content: converter.makeHtml(file),
-    ...article,
-  };
+      // Parse content
+      return {
+        content: converter.makeHtml(file),
+        ...article,
+      };
+    })
+  );
 }
 
 export async function listArticles() {

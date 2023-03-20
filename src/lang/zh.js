@@ -31,6 +31,9 @@ export default {
   ranking: {
     title: "排行榜",
   },
+  map: {
+    title: "地图",
+  },
   notFound: {
     title: "找不到内容",
     description: "这个页面不存在",
