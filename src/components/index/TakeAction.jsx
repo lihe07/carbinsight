@@ -2,6 +2,9 @@ import Equation from "./TakeAction/Equation";
 
 import blob1l from "@/assets/images/blob1l.svg?raw";
 import blob1r from "@/assets/images/blob1r.svg?raw";
+import blob2l from "@/assets/images/blob2l.svg?raw";
+import blob2r from "@/assets/images/blob2r.svg?raw";
+
 import { For } from "solid-js";
 import Section from "@/components/Section";
 import Title from "@/components/CenterTitle";
@@ -10,22 +13,22 @@ const equations = [
   {
     leftBlob: blob1l,
     rightBlob: blob1r,
-    left: "Waste Classified",
-    right: "Carbon Reduced",
-    leftValue: "114",
-    rightValue: "514",
-    leftUnit: "kg",
-    rightUnit: "kg",
+    left: "煤炭节省",
+    right: "二氧化碳减排",
+    leftValue: "1.00",
+    rightValue: "2.36",
+    leftUnit: "吨",
+    rightUnit: "吨",
   },
   {
-    leftBlob: blob1l,
-    rightBlob: blob1r,
-    left: "Waste Classified",
-    right: "Carbon Reduced",
-    leftValue: "114",
-    rightValue: "514",
-    leftUnit: "kg",
-    rightUnit: "kg",
+    leftBlob: blob2l,
+    rightBlob: blob2r,
+    left: "樟树",
+    right: "二氧化碳减排",
+    leftValue: "1.0",
+    rightValue: "150",
+    leftUnit: "棵",
+    rightUnit: "千克",
   },
 ];
 

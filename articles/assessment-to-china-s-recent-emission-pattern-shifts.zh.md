@@ -1,31 +1,31 @@
 ---
 title: 对中国近期碳排放趋势的评估
 description: 本文章考虑了近如新冠疫情等时事的影响，多方面评估了目前温室气体排放的情况
-tags: ['Science Article']
-cover: ./assessment-to-china-s-recent-emission-pattern-shifts/cover.jpg
+tags: ["Science Article"]
+cover: https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/696557964199e11032d7/cover.jpg
 date: 2022-12-14
 ---
 
 ## 摘要
 
-根据最新中国政府对二氧化碳排放统计的校订版本，2014至2017年中国碳排放增长0.3%。该版本将2005年排放强度基线增加了5.1%-10.8%，进而增加了实现“双碳目”标的难度。但是2020年碳排放强度目标在2018年提前实现。对2020年全国碳排放的初步估计显示，新冠疫情的停工停产防控措施并不能抑制每年碳排放的增长。该文章的数据库为中国实现“碳中和” 目标提供了更为完善的证据库。
+根据最新中国政府对二氧化碳排放统计的校订版本，2014 至 2017 年中国碳排放增长 0.3%。该版本将 2005 年排放强度基线增加了 5.1%-10.8%，进而增加了实现“双碳目”标的难度。但是 2020 年碳排放强度目标在 2018 年提前实现。对 2020 年全国碳排放的初步估计显示，新冠疫情的停工停产防控措施并不能抑制每年碳排放的增长。该文章的数据库为中国实现“碳中和” 目标提供了更为完善的证据库。
 
 结果和讨论中的关键内容：
 
-1. 中国50%以上的碳排放来自煤炭燃烧。图1（a）
-2. 尽管停工停产，碳排放量仍呈现增长趋势(与能源消耗有关)，但增长势头有所下降。图1（b）(c)
+1. 中国 50%以上的碳排放来自煤炭燃烧。图 1（a）
+2. 尽管停工停产，碳排放量仍呈现增长趋势(与能源消耗有关)，但增长势头有所下降。图 1（b）(c)
 
-   ![EmissionData](./assessment-to-china-s-recent-emission-pattern-shifts/emission-data.jpg)
+   ![EmissionData](https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/602965564199e33692c2/emission-data.jpg)
    <center>图1</center>
 
-3. 中国北方城市普遍排放更多二氧化碳，同时具有更高的排放强度和人均排放量。 图2
+3. 中国北方城市普遍排放更多二氧化碳，同时具有更高的排放强度和人均排放量。 图 2
 
-   ![图二](./assessment-to-china-s-recent-emission-pattern-shifts/figure2.png)
+   ![图二](https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/903885564199e5266f08/figure2.png)
    <center>图2</center>
 
-4. 全国统计的数据和各个省份碳排放量之和之间的误差主要来源于跨省电流输送统计错误。图3
+4. 全国统计的数据和各个省份碳排放量之和之间的误差主要来源于跨省电流输送统计错误。图 3
 
-   ![图三](./assessment-to-china-s-recent-emission-pattern-shifts/figure3.png)
+   ![图三](https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/619773764199e61914d7/figure3.png)
    <center>图3</center>
 
 ## 总结
@@ -34,4 +34,4 @@ date: 2022-12-14
 
 原文链接： [DOI-10.1029/2021EF002241](https://doi.org/10.1029/2021EF002241)
 
-Guan, Y., Shan, Y., Huang, Q., Chen, H., Wang, D., & Hubacek, K. (2021). Assessment to China's recent emission pattern shifts. *Earth's Future*, 9, e2021EF002241.
+Guan, Y., Shan, Y., Huang, Q., Chen, H., Wang, D., & Hubacek, K. (2021). Assessment to China's recent emission pattern shifts. _Earth's Future_, 9, e2021EF002241.

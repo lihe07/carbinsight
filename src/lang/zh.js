@@ -29,7 +29,7 @@ export default {
     title: "文章",
   },
   ranking: {
-    title: "排行榜",
+    title: "学校排名",
   },
   map: {
     title: "地图",

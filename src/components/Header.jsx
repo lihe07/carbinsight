@@ -76,7 +76,7 @@ export default () => {
   const line = "bg-white h-4px w-6 rounded transition-all-300";
   return (
     <header
-      class="fixed z-4 w-full h-20 dark:bg-true-gray-8 light:bg-teal-7 !bg-op-70 backdrop-blur flex items-center justify-between transition-all-300"
+      class="select-none fixed z-4 w-full h-20 dark:bg-true-gray-8 light:bg-teal-7 !bg-op-70 backdrop-blur flex items-center justify-between transition-all-300"
       classList={{ "op-100 top-0": show(), "op-0 top--20": !show() }}
     >
       <div class="max-w-300 px-10 w-full ma flex justify-between items-center text-5 color-white relative">
