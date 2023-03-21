@@ -1,4 +1,3 @@
-import { Motion } from "@motionone/solid";
 import { onMount, createSignal, splitProps, mergeProps } from "solid-js";
 
 export default (_props) => {
