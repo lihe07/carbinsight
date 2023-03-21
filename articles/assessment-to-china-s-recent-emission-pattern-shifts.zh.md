@@ -3,7 +3,7 @@ title: 对中国近期碳排放趋势的评估
 description: 本文章考虑了近如新冠疫情等时事的影响，多方面评估了目前温室气体排放的情况
 tags: ['Science Article']
 cover: ./assessment-to-china-s-recent-emission-pattern-shifts/cover.jpg
-date: 2022-12-14-T06:30+08:00
+date: 2022-12-14
 ---
 
 ## 摘要

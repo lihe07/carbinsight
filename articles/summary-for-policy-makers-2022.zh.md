@@ -3,7 +3,7 @@ title: ipcc决策者摘要-2022
 description: 本文章是ipcc最新研究报告（ipcc第六次评估报告，气候变化2022：影响、适应和脆弱性）
 tags: ['Inter-government Organization Articles']
 cover: ./summary-for-policy-makers-2022/IPCC_AR6_cover.jpeg
-date: 2023-1-22-T06:30+08:00
+date: 2023-1-22
 ---
 
 

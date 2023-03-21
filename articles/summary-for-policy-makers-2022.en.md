@@ -3,7 +3,7 @@ title: Summary for Policy Makers 2022
 description: "Latest edition from ipcc (IPCC Sixth Assessment Report, Climate Change 2022: Impacts, Adaptation and Vulnerability)"
 tags: ['Inter-government Organization Articles']
 cover: ./summary-for-policy-makers-2022/IPCC_AR6_cover.jpeg
-date: 2023-01-21-T06:30+08:00
+date: 2023-01-21
 ---
 
 Observed Impacts from Climate Change
