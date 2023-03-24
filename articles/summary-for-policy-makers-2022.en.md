@@ -1,7 +1,7 @@
 ---
 title: Summary for Policy Makers 2022
 description: "Latest edition from ipcc (IPCC Sixth Assessment Report, Climate Change 2022: Impacts, Adaptation and Vulnerability)"
-tags: ["Inter-government Organization Articles"]
+tags: ["intergov"]
 cover: https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/996647264199deeb3725/IPCC_AR6_cover.jpeg
 date: 2023-01-21
 ---

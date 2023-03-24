@@ -24,8 +24,12 @@ export default (_props) => {
 
   onMount(() => {
     window.addEventListener("scroll", onScroll);
+    window, addEventListener("resize", onScroll);
     setTimeout(onScroll, 150);
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   });
 
   return (

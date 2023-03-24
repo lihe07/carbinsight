@@ -1,7 +1,7 @@
 ---
 title: 对中国近期碳排放趋势的评估
 description: 本文章考虑了近如新冠疫情等时事的影响，多方面评估了目前温室气体排放的情况
-tags: ["Science Article"]
+tags: ["ngo"]
 cover: https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/696557964199e11032d7/cover.jpg
 date: 2022-12-14
 ---

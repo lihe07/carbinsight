@@ -22,19 +22,43 @@ const categories = [
       zh: "所有文章",
     },
     cover: header,
-    id: 1,
+    id: "all",
   },
   {
     name: {
-      en: "Category 1",
-      zh: "分类 1",
+      en: "Gov Documents",
+      zh: "政府文献",
     },
     description: {
-      en: "Category 1",
-      zh: "分类 1",
+      en: "Goverment Documents",
+      zh: "政府文献",
     },
     cover: header,
-    id: 2,
+    id: "gov",
+  },
+  {
+    name: {
+      en: "Intergov Documents",
+      zh: "政府间组织文献",
+    },
+    description: {
+      en: "Intergoverment Documents",
+      zh: "政府间组织文献",
+    },
+    cover: header,
+    id: "intergov",
+  },
+  {
+    name: {
+      en: "NGO Articles",
+      zh: "公益组织文章",
+    },
+    description: {
+      en: "NGO Articles",
+      zh: "公益组织文章",
+    },
+    cover: header,
+    id: "ngo",
   },
 ];
 
@@ -125,9 +149,16 @@ const Right = (props) => {
   // const articles = () => props.data?.filter((item) => item.lang === lang());
   const [articles, setArticles] = createSignal([]);
   createEffect(() => {
-    console.log(props.data);
     if (props.data)
-      setArticles(props.data.filter((item) => item.lang === lang()));
+      setArticles(
+        props.data.filter((item) => {
+          if (item.lang != lang()) return false;
+          if (props.category.id === "all") return true;
+          return item.tags.includes(props.category.id);
+        })
+      );
+
+    console.log("reorg");
   });
 
   return (
@@ -137,7 +168,7 @@ const Right = (props) => {
         title={props.category.name[lang()]}
         description={props.category.description[lang()]}
       />
-      <div class="px-10 color-white">
+      <div class="px-10">
         <div class="md:hidden block mt-5 mb--10">
           <ul class="list-none p0 m0 color-white flex gap-5">
             <For each={categories}>
@@ -156,9 +187,20 @@ const Right = (props) => {
         {/* {props.data} */}
         <For each={articles()}>
           {(item, index) => (
-            <LongArticleBlock reverse={index() % 2} {...item} />
+            <LongArticleBlock
+              reverse={index() % 2}
+              noAnimation={true}
+              {...item}
+            />
           )}
         </For>
+        <Show when={articles().length === 0}>
+          <Section animOnly={true}>
+            <div class="color-white h-100 flex items-center justify-center">
+              <h2 class="op-80">没有内容...</h2>
+            </div>
+          </Section>
+        </Show>
       </div>
     </div>
   );

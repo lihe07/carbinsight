@@ -2,10 +2,21 @@ import { Show } from "solid-js";
 import Section from "./Section";
 import { useNavigate } from "solid-start";
 
+function Wrapper(props) {
+  return (
+    <>
+      <Show when={props.noAnimation}>{props.children}</Show>
+      <Show when={!props.noAnimation}>
+        <Section animOnly={true}>{props.children}</Section>
+      </Show>
+    </>
+  );
+}
+
 export default (props) => {
   const navigate = useNavigate();
   return (
-    <Section animOnly={true}>
+    <Wrapper noAnimation={props.noAnimation}>
       <div
         class="flex rounded-5 min-h-70 w-full bg-black dark:bg-op-50 light:bg-op-30 transition my-20 md:flex-row flex-col cursor-pointer op-90 hover:op-100 active:op-80 cursor-pointer"
         classList={{
@@ -37,6 +48,6 @@ export default (props) => {
           </p>
         </div>
       </div>
-    </Section>
+    </Wrapper>
   );
 };
