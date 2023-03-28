@@ -37,9 +37,9 @@ export default (props) => {
         classList={{ "h-full py-10": hover(), "h-33 py-6": !hover() }}
       >
         <div class="flex items-center justify-between">
-          <h1 class="text-7 tracking-wide  m0">{props.title}</h1>
+          <h1 class="text-7 tracking-wide truncate m0">{props.title}</h1>
 
-          <Open href={props.href} hover={hover()} />
+          <Open href={"/articles/" + props.id} hover={hover()} />
         </div>
         <div class="flex gap-2 mt-3">
           <For each={props.tags}>

@@ -6,10 +6,15 @@ import Articles from "@/components/index/Articles";
 
 import Section from "@/components/Section";
 import AboutUs from "@/components/index/AboutUs";
-import { Meta, Title } from "solid-start";
+import { Meta, Title, useRouteData } from "solid-start";
 import { useAppContext } from "@/AppContext";
 
-export default () => {
+import articlesRouteData from "@/routes/articles/index.data.js";
+
+export const routeData = articlesRouteData;
+
+export default (props) => {
+  const data = useRouteData();
   const { t } = useAppContext();
   return (
     <div class="overflow-hidden">
@@ -25,7 +30,7 @@ export default () => {
         <AnimatedWave type="immediate" />
         <div class="dark:bg-true-gray-8 light:bg-teal-9 transition-colors-300">
           <TakeAction />
-          <Articles />
+          <Articles data={data()} />
         </div>
       </Section>
       <AboutUs />

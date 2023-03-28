@@ -1,7 +1,7 @@
 ---
 title: Assessment to China's Recent Emission Pattern Shifts
 description: This article assesses current green house gas emission effect considering recent developments such as the COVID-19 epidemic
-tags: ["ngo"]
+tags: ["papers"]
 cover: https://lms.d.zhan.com/zhanlms/addon_homework/2023/03/696557964199e11032d7/cover.jpg
 date: 2022-12-14
 ---

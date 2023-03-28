@@ -60,6 +60,18 @@ const categories = [
     cover: header,
     id: "ngo",
   },
+  {
+    name: {
+      en: "Research Papers",
+      zh: "科研论文",
+    },
+    description: {
+      en: "Research Papers Desc",
+      zh: "科研论文描述",
+    },
+    cover: header,
+    id: "papers",
+  },
 ];
 
 const ImageHeader = (props) => {
@@ -125,7 +137,7 @@ const Input = (props) => {
 const Left = (props) => {
   return (
     <aside class="border-r border-white w-70 border-r-solid border-op-10 md:block hidden">
-      <div class="sticky top-30 px-10 color-white">
+      <div class="sticky top-30 pb-5 px-10 color-white">
         <Input setCategory={props.setCategory} />
         <ul class="list-none p0 mt-7">
           <For each={categories}>
@@ -154,6 +166,14 @@ const Right = (props) => {
         props.data.filter((item) => {
           if (item.lang != lang()) return false;
           if (props.category.id === "all") return true;
+
+          if (props.category.id === -1) {
+            // Search
+            if (props.category.value === "") return false;
+            if (item.title.includes(props.category.value)) return true;
+            if (item.description.includes(props.category.value)) return true;
+            return false;
+          }
           return item.tags.includes(props.category.id);
         })
       );
@@ -195,11 +215,9 @@ const Right = (props) => {
           )}
         </For>
         <Show when={articles().length === 0}>
-          <Section animOnly={true}>
-            <div class="color-white h-100 flex items-center justify-center">
-              <h2 class="op-80">没有内容...</h2>
-            </div>
-          </Section>
+          <div class="color-white h-100 flex items-center justify-center">
+            <p class="op-80 text-xl">没有内容...</p>
+          </div>
         </Show>
       </div>
     </div>

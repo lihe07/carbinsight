@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import Section from "../../components/Section";
 import LongArticleBlock from "../../components/LongArticleBlock";
 import Title from "../../components/CenterTitle";
@@ -9,7 +9,8 @@ const map = [];
 
 import { useAppContext } from "@/AppContext";
 
-export default () => {
+export default (props) => {
+  // console.log(props.data);
   const { t, lang } = useAppContext();
 
   const withOrg = () =>
@@ -33,7 +34,11 @@ export default () => {
         )}
       </For>
       <div class="my-20"></div>
-      <ArticlesCarousel />
+      <ArticlesCarousel
+        articles={
+          props.data && props.data.filter((item) => item.lang === lang())
+        }
+      />
     </Section>
   );
 };

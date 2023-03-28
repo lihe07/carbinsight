@@ -6,33 +6,6 @@ import cover from "@/assets/images/ba.jpg";
 import { For, onCleanup, onMount } from "solid-js";
 import Section from "@/components/Section";
 
-const articles = [
-  {
-    cover,
-    tags: ["Tag 1", "Tag 2"],
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rerum, voluptatum fugit laboriosam harum, totam vero perspiciatis porro facere assumenda",
-    title: "Article 1",
-    href: "#",
-  },
-  {
-    cover,
-    tags: ["Tag 1", "Tag 2"],
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rerum, voluptatum fugit laboriosam harum, totam vero perspiciatis porro facere assumenda",
-    title: "Article 2",
-    href: "#",
-  },
-  {
-    cover,
-    tags: ["Tag 1", "Tag 2"],
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea rerum, voluptatum fugit laboriosam harum, totam vero perspiciatis porro facere assumenda",
-    title: "Article 3",
-    href: "#",
-  },
-];
-
 const Cover = (props) => {
   return (
     <div
@@ -59,7 +32,7 @@ const Cover = (props) => {
   );
 };
 
-export default () => {
+export default (props) => {
   let el;
 
   onMount(() => {
@@ -86,7 +59,7 @@ export default () => {
         <div class="blaze-container">
           <div class="blaze-track-container !overflow-visible">
             <div class="blaze-track">
-              <For each={articles}>
+              <For each={props.articles}>
                 {(article) => (
                   <div class="">
                     <NarrowArticleBlock {...article} />
