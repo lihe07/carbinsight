@@ -13,6 +13,7 @@ import data from "@/assets/data.csv?raw";
 
 import * as d3 from "d3";
 import { useAppContext } from "@/AppContext";
+import Switcher from "../Switcher";
 
 function parser(raw) {
   console.log("Parsing data...");
@@ -99,6 +100,9 @@ export default () => {
 
       <div class="mt-20 md:h-170 h-[calc(100vh-130px)] flex md:flex-row flex-col justify-between">
         <Card class="relative md:w-[calc(50%-10px)] md:h-full h-[calc(50%-10px)]">
+          <div class="absolute top-5 flex justify-center items-center w-full">
+            <Switcher options={["排放因子", "卫星"]}></Switcher>
+          </div>
           <InteractiveMap
             defaultLevel="china"
             currentLevel={currentLevel()}
@@ -106,6 +110,9 @@ export default () => {
             data={res.data[currentYear()]}
             numberToColor={numberToColor}
           />
+          <div class="absolute bottom-5 flex justify-center items-center w-full">
+            <Switcher small options={["总量", "人均", "按GDP"]}></Switcher>
+          </div>
         </Card>
 
         <div class="flex flex-col justify-between md:w-[calc(50%-10px)] md:h-full h-[calc(50%-10px)]">
