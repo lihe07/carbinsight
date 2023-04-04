@@ -7,11 +7,18 @@ import FirstScreenScroll from "./FirstScreen/FirstScreenScroll";
 
 const duration = 5; // Play for 5sec
 
+// const videoList = [
+//   "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843884944205312000.webm",
+//   "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014466.webm",
+//   "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014467.webm",
+//   "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014468.webm",
+// ];
+
 const videoList = [
-  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843884944205312000.webm",
-  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014466.webm",
-  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014467.webm",
-  "https://files-cos.banxiaoer.net/p/731233309742329856/f/comm/file/843885022190014468.webm",
+  "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221229/506521865.mp4",
+  "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/-686704155.mp4",
+  "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/-2028839248.mp4",
+  "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/-1589088106.mp4",
 ];
 
 export default () => {
