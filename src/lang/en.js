@@ -9,7 +9,8 @@ export default {
     },
     takeAction: {
       title: "Take Action",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description:
+        "Here, we show the equation for converting carbon emissions to other substances",
     },
     articles: {
       title: "Articles",

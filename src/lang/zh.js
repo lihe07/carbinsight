@@ -10,7 +10,7 @@ export default {
     },
     takeAction: {
       title: "采取行动",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description: "在这里我们会体现出碳排放量与其他物质的转化等式",
     },
     articles: {
       title: "文章",

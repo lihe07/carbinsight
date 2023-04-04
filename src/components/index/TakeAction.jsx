@@ -8,6 +8,7 @@ import blob2r from "@/assets/images/blob2r.svg?raw";
 import { For } from "solid-js";
 import Section from "@/components/Section";
 import Title from "@/components/CenterTitle";
+import { useAppContext } from "@/AppContext";
 
 const equations = [
   {
@@ -33,14 +34,12 @@ const equations = [
 ];
 
 export default () => {
+  const { t } = useAppContext();
   return (
     <Section>
-      {/* <h1 class="m0 text-center color-white text-10 tracking-wide md:text-15">
-        Take Action
-      </h1> */}
       <Title
-        title="Take Action"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
+        title={t("index.takeAction.title")}
+        description={t("index.takeAction.description")}
       />
       <div class="h-20" />
       <For each={equations}>{(equation) => <Equation {...equation} />}</For>
