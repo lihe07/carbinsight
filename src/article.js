@@ -1,61 +1,81 @@
-import fs from "fs/promises";
-import yaml from "js-yaml";
+import { Client } from "@notionhq/client";
+import NotionPageToHtml from "notion-page-to-html";
 
-import showdown from "showdown";
+/**
+ * @typedef {Object} Article
+ * @property {string} id
+ * @property {string} lang
+ * @property {string} title
+ * @property {string} description
+ * @property {string} date
+ * @property {string} cover
+ * @property {string[]} tags
+ * @property {string?} content
+ * @property {string?} file
+ */
 
-const dir = "articles";
+// Load .env
+import dotenv from "dotenv";
+import { bootstrap } from "global-agent";
 
-const converter = new showdown.Converter();
-converter.setFlavor("github");
+function makeClient() {
+  dotenv.config();
+  bootstrap();
 
+  return new Client({
+    auth: process.env.NOTION_TOKEN,
+    timeoutMs: 10000,
+  });
+}
+
+function mapPage(page) {
+  return {
+    id: page.properties.id.rich_text[0].plain_text,
+    lang: page.properties.Lang.select.name,
+    title: page.properties.Title.title[0].plain_text,
+    description: page.properties.Description.rich_text[0].plain_text,
+    date: page.properties.Date.date.start,
+    cover: page.cover.external.url,
+    tags: page.properties.Tags.multi_select.map((tag) => tag.name),
+  };
+}
+
+/**
+ * @param {string} id
+ * @returns {Promise<Article[]>}
+ */
 export async function parseArticle(id) {
-  const list = await listArticles();
+  console.log("parseArticle", id);
+  const pages = await makeClient().databases.query({
+    database_id: process.env.NOTION_DATABASE_ID,
+    filter: {
+      property: "id",
+      rich_text: {
+        equals: id,
+      },
+    },
+  });
 
-  const articles = list.filter((a) => a.id === id);
-
-  if (articles.length === 0) {
-    return null;
-  }
-
+  //   console.log(pages);
   return await Promise.all(
-    articles.map(async (article) => {
-      let file = await (await fs.readFile(dir + "/" + article.file)).toString();
-
-      // Remove frontmatter - only replace the first
-      file = file.split("---").slice(2).join("---");
-
-      // Parse content
-      return {
-        content: converter.makeHtml(file),
-        ...article,
-      };
+    pages.results.map(async (page) => {
+      let article = mapPage(page);
+      article.content = (
+        await NotionPageToHtml.convert(page.url, {
+          bodyContentOnly: true,
+        })
+      ).html;
+      return article;
     })
   );
 }
 
+/**
+ * @returns {Promise<Article[]>}
+ */
 export async function listArticles() {
-  let files = await fs.readdir(dir);
-
-  files = files.filter((file) => file.endsWith(".md"));
-
-  files = await Promise.all(
-    files.map(async (file) => {
-      const [id, lang, ext] = file.split(".");
-      // Read the file, parse frontmatter
-      const meta = yaml.loadAll(
-        await (await fs.readFile(dir + "/" + file)).toString().split("---")[1]
-      )[0];
-
-      meta.date = meta.date.toLocaleDateString();
-
-      return {
-        id,
-        lang,
-        file,
-        ...meta,
-      };
-    })
-  );
-
-  return files;
+  const pages = await makeClient().databases.query({
+    database_id: process.env.NOTION_DATABASE_ID,
+  });
+  return pages.results.map(mapPage);
 }
