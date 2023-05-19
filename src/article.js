@@ -28,6 +28,16 @@ function makeClient() {
   });
 }
 
+function checkPage(page) {
+  // Check if page has all required properties
+  try {
+    mapPage(page);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function mapPage(page) {
   return {
     id: page.properties.id.rich_text[0].plain_text,
@@ -58,7 +68,7 @@ export async function parseArticle(id) {
 
   //   console.log(pages);
   return await Promise.all(
-    pages.results.map(async (page) => {
+    pages.results.filter(checkPage).map(async (page) => {
       let article = mapPage(page);
       article.content = (
         await NotionPageToHtml.convert(page.url, {
@@ -77,5 +87,5 @@ export async function listArticles() {
   const pages = await makeClient().databases.query({
     database_id: process.env.NOTION_DATABASE_ID,
   });
-  return pages.results.map(mapPage);
+  return pages.results.filter(checkPage).map(mapPage);
 }

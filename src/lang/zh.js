@@ -30,9 +30,18 @@ export default {
   },
   ranking: {
     title: "学校排名",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    rank: "排名",
+    name: "学校名称",
+    amount: "回收量",
   },
   map: {
     title: "地图",
+    factors: "排放因子",
+    satelite: "卫星",
+    total: "总量",
+    perCapita: "人均",
+    perGDP: "按GDP",
   },
   notFound: {
     title: "找不到内容",

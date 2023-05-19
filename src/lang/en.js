@@ -30,9 +30,18 @@ export default {
   },
   ranking: {
     title: "Ranking",
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    rank: "Rank",
+    name: "School Name",
+    amount: "Amount",
   },
   map: {
     title: "Map",
+    factors: "Factors",
+    satelite: "Satelite",
+    total: "Total",
+    perCapita: "Per Capita",
+    perGDP: "Per GDP",
   },
   notFound: {
     title: "Page Not Found",

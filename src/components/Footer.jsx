@@ -6,10 +6,10 @@ import { useAppContext } from "@/AppContext";
 const orgs = [
   {
     name: "Green Lens",
-    logo: "https://placekitten.com/300/300",
+    logo: "https://lms.d.zhan.com/zhanlms/addon_homework/2023/05/3079502646584e64f026/gl.jpg",
   },
   {
-    name: "Anyhow",
+    name: "<empty>",
     logo: "https://via.placeholder.com/150",
   },
 ];
@@ -45,7 +45,8 @@ export default () => {
             <a class="color-white" href="https://beian.miit.gov.cn/">
               京ICP备2021000000号-1
             </a>
-            \ | @2023 Carbinsight
+            <span> | </span>
+            @2023 Carbinsight
           </p>
         </div>
       </Section>

@@ -1,0 +1,41 @@
+.dark th {
+  background-color: rgba(38, 38, 38, 1);
+}
+
+.light th {
+  background-color: rgba(15, 118, 110, 1);
+}
+
+table {
+  border-spacing: 0;
+}
+
+th {
+  font-weight: lighter;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+th,
+td {
+  padding: 10px 15px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+thead th:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+thead th:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.dark td {
+  border-bottom: 2px solid rgba(38, 38, 38, 1);
+}
+
+.light td {
+  border-bottom: 2px solid rgba(15, 118, 110, 1);
+}

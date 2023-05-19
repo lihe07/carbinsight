@@ -66,7 +66,7 @@ export default () => {
 
   return (
     <div class="pt-20 color-white">
-      <Title>Carbinsight - 文章</Title>
+      <Title>Carbinsight - {article()?.title}</Title>
 
       <Section>
         <div class="flex gap-10 md:flex-row flex-col-reverse ">

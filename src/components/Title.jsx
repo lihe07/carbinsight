@@ -1,3 +1,9 @@
+/**
+ * Title component
+ * @param {string} props.title Title
+ * @param {string} props.description Description
+ * @param {boolean} props.right Align to right
+ */
 export default (props) => {
   return (
     <div

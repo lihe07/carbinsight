@@ -58,6 +58,11 @@ export const AppContextProvider = (props) => {
   const value = {
     lang,
     dark,
+    /**
+     * Get translation
+     * @param {string?} key
+     * @returns {string?}
+     */
     t(key) {
       return deepReadObject(dict[lang()], key, key);
     },
