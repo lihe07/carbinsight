@@ -6,6 +6,7 @@ import { useAppContext } from "@/AppContext";
 import "./[id].css";
 
 import articleRouteData from "./[id].data";
+import { createEffect, createSignal, on } from "solid-js";
 
 export const routeData = articleRouteData;
 
@@ -61,8 +62,15 @@ export default () => {
 
   const { lang } = useAppContext();
 
-  const article = () =>
-    data() && (data().find((article) => article.lang === lang()) || data()[0]);
+  const [article, setArticle] = createSignal(null)
+
+  createEffect(on([
+    lang, data
+  ], () => {
+    if (data()) {
+      setArticle(data().find((article) => article.lang === lang()) || data()[0])
+    }
+  }))
 
   return (
     <div class="pt-20 color-white">

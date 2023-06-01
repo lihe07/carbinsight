@@ -18,6 +18,8 @@ import NotionPageToHtml from "notion-page-to-html";
 import dotenv from "dotenv";
 import { bootstrap } from "global-agent";
 
+const defaultCover = "https://www.notion.so/images/page-cover/solid_yellow.png";
+
 function makeClient() {
   dotenv.config();
   bootstrap();
@@ -34,6 +36,7 @@ function checkPage(page) {
     mapPage(page);
     return true;
   } catch (e) {
+    console.log("Invalid page", page);
     return false;
   }
 }
@@ -43,18 +46,16 @@ function mapPage(page) {
     id: page.properties.id.rich_text[0].plain_text,
     lang: page.properties.Lang.select.name,
     title: page.properties.Title.title[0].plain_text,
-    description: page.properties.Description.rich_text[0].plain_text,
+    description: page.properties.Description.rich_text[0]?.plain_text || "",
     date: page.properties.Date.date.start,
-    cover: page.cover.external.url,
+    cover: page.cover?.external?.url || defaultCover,
     tags: page.properties.Tags.multi_select.map((tag) => tag.name),
   };
 }
 
-/**
- * @param {string} id
- * @returns {Promise<Article[]>}
- */
-export async function parseArticle(id) {
+const cache = {};
+
+async function _parseArticle(id){ 
   console.log("parseArticle", id);
   const pages = await makeClient().databases.query({
     database_id: process.env.NOTION_DATABASE_ID,
@@ -81,11 +82,30 @@ export async function parseArticle(id) {
 }
 
 /**
+ * @param {string} id
+ * @returns {Promise<Article[]>}
+ */
+export async function parseArticle(id) {
+  if (cache[id]) {
+    console.log("cache hit", id);
+    return cache[id];
+  }
+  cache[id] = await _parseArticle(id);
+  return cache[id];
+}
+
+let cacheList = null;
+
+/**
  * @returns {Promise<Article[]>}
  */
 export async function listArticles() {
+  if (cacheList) return cacheList;
+
   const pages = await makeClient().databases.query({
     database_id: process.env.NOTION_DATABASE_ID,
   });
-  return pages.results.filter(checkPage).map(mapPage);
+
+  cacheList = pages.results.filter(checkPage).map(mapPage);
+  return cacheList;
 }
