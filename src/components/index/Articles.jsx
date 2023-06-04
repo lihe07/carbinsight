@@ -5,7 +5,6 @@ import Title from "../../components/CenterTitle";
 
 import ArticlesCarousel from "./Articles/ArticlesCarousel";
 
-const map = [];
 
 import { useAppContext } from "@/AppContext";
 
@@ -14,8 +13,8 @@ export default (props) => {
   const { t, lang } = useAppContext();
 
   const withOrg = () =>
-    map.filter(
-      (item) => item.meta.language === lang() && item.meta.orgnization
+    props.data && props.data.filter(
+      (item) => item.lang === lang() && item.orgnization
     );
 
   return (
@@ -27,8 +26,7 @@ export default (props) => {
       <For each={withOrg()}>
         {(item, index) => (
           <LongArticleBlock
-            {...item.meta}
-            name={item.name}
+            {...item}
             reverse={index() % 2}
           />
         )}

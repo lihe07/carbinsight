@@ -12,6 +12,7 @@ import NotionPageToHtml from "notion-page-to-html";
  * @property {string[]} tags
  * @property {string?} content
  * @property {string?} file
+ * @property {string?} orgnization
  */
 
 // Load .env
@@ -50,12 +51,13 @@ function mapPage(page) {
     date: page.properties.Date.date.start,
     cover: page.cover?.external?.url || defaultCover,
     tags: page.properties.Tags.multi_select.map((tag) => tag.name),
+    orgnization: page.properties.Org?.select?.name,
   };
 }
 
 const cache = {};
 
-async function _parseArticle(id){ 
+async function _parseArticle(id) {
   console.log("parseArticle", id);
   const pages = await makeClient().databases.query({
     database_id: process.env.NOTION_DATABASE_ID,

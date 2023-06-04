@@ -47,9 +47,7 @@ function resize(container, svg, g, transform) {
     const deltaY = (container.clientHeight - transform.clientHeight) / 2;
     g.attr(
       "transform",
-      `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
-        transform.k
-      })`
+      `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${transform.k})`
     );
   }
 }
@@ -176,9 +174,9 @@ export default (props) => {
     map.g.selectAll("path").classed(
       "active",
       ele &&
-        function () {
-          return this.id === ele.id;
-        }
+      function () {
+        return this.id === ele.id;
+      }
     );
 
     map.g

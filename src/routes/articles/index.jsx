@@ -11,7 +11,7 @@ import articlesRouteData from "./index.data";
 
 export const routeData = articlesRouteData;
 
-const categories = [
+export const categories = [
   {
     name: {
       en: "All",
