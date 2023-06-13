@@ -24,8 +24,6 @@ export default (props) => {
 
       <FirstScreen />
       <Ranking />
-      {/* Future: */}
-      {/* <Prediction /> */}
       <Section animOnly={true}>
         <AnimatedWave type="immediate" />
         <div class="dark:bg-true-gray-8 light:bg-teal-9 transition-colors-300">

@@ -27,11 +27,7 @@ export default () => {
       <Title>Carbinsight - {t("map.title")}</Title>
 
       <div class="h-screen pt-20 box-border w-60% relative">
-
-        <Card class="p-5 absolute top-25 left-5 right-0">
-          Properties
-        </Card>
-
+        <Card class="p-5 absolute top-25 left-5 right-0">Properties</Card>
 
         <InteractiveMap
           data={res.data[currentYear()]}
@@ -41,17 +37,12 @@ export default () => {
           numberToColor={numberToColor}
         />
 
-        <Card class="p-5 absolute bottom-5 left-5 right-0">
-          TIME Slider
-        </Card>
-
+        <Card class="p-5 absolute bottom-5 left-5 right-0">TIME Slider</Card>
       </div>
 
       <Card class="p-5 mt-25 m-5 flex-grow">
         <h2>TODO: Ranking...</h2>
       </Card>
-
-
     </div>
   );
 };

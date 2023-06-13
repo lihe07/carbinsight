@@ -22,6 +22,7 @@
     "d3": "^7.8.5",
     "global-agent": "^3.0.0",
     "js-yaml": "^4.1.0",
+    "leaflet": "^1.9.4",
     "notion-page-to-html": "^1.2.0",
     "prettier": "^2.8.4",
     "remark": "^14.0.2",

@@ -24,7 +24,7 @@ export default () => {
 
   const [currentLevel, setCurrentLevel] = createSignal("china");
   // const [currentYear, setCurrentYear] = createSignal(2019);
-  const currentYear = 2019
+  const currentYear = 2019;
 
   let res = parser(factor);
 
@@ -48,7 +48,7 @@ export default () => {
           <div class="absolute top-5 flex justify-center items-center w-full">
             <Switcher
               options={[t("map.factors"), t("map.satelite")]}
-              onChange={(d) => { }}
+              onChange={(d) => {}}
             ></Switcher>
           </div>
           <InteractiveMap

@@ -3,11 +3,15 @@ import * as d3 from "d3";
 import { useAppContext } from "../AppContext";
 import style from "./InteractiveMap.module.css";
 
-const api =
+const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
 
+const api = "https://geo.datav.aliyun.com/areas_v2/bound/{level}_full.json";
+
 async function getGeoJson(level) {
-  const res = await fetch(api.replace("{level}", level));
+  const res = await fetch(
+    level === "china" || level === null ? china : api.replace("{level}", level)
+  );
   const data = await res.json();
   return data.features;
 }
@@ -15,13 +19,12 @@ async function getGeoJson(level) {
 function coloring(g, dark, data, numberToColor) {
   if (!g) return;
   g.selectAll("path")
-    // .attr('fill', dark ? '#525252' : '#0d9488')
+    // .attr("fill", dark ? "#525252" : "#0d9488")
     .attr("fill", (d) => {
       const code = d.properties.code;
       if (!data[code]) {
         return dark ? "#525252" : "#0d9488";
       }
-      // console.log("Rendering: ", code, data[code], numberToColor(data[code]?.Total))
       return numberToColor(data[code]?.Total, dark);
     })
     .attr("stroke", dark ? "#262626" : "#115e59")
@@ -35,7 +38,6 @@ function resize(container, svg, g, transform) {
   svg.attr("width", width).attr("height", height);
   svg.selectAll("rect").attr("width", width).attr("height", height);
   // translate the map to center
-
   if (!transform) {
     if (window.innerWidth < 768) {
       g.attr("transform", `translate(${width / 2}, ${height / 2}) scale(0.7)`);
@@ -47,13 +49,15 @@ function resize(container, svg, g, transform) {
     const deltaY = (container.clientHeight - transform.clientHeight) / 2;
     g.attr(
       "transform",
-      `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${transform.k})`
+      `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
+        transform.k
+      })`
     );
   }
 }
 
 function initMap(container, features, onClick) {
-  const projection = d3.geoMercator().center([155, 15]).scale(530);
+  const projection = d3.geoMercator().center([158, 15]).scale(500);
   // .translate([width / 2, height / 2])
   const path = d3.geoPath().projection(projection);
   const svg = d3.select(container).append("svg");
@@ -74,7 +78,7 @@ function initMap(container, features, onClick) {
     .append("path")
     .attr("d", path)
     .attr("id", function (d) {
-      return d.properties.code;
+      return d.properties.code || d.properties.adcode;
     })
     .on("mouseover", function () {
       d3.select(this).transition().duration(150).attr("opacity", 1);
@@ -113,7 +117,8 @@ export default (props) => {
   let container;
   const { dark } = useAppContext();
 
-  const featuresPromise = getGeoJson(null);
+  console.log(props.defaultLevel);
+  const featuresPromise = getGeoJson(props.defaultLevel);
 
   onMount(() => {
     featuresPromise.then((features) => {
@@ -131,6 +136,19 @@ export default (props) => {
   createEffect(() => {
     console.log("change level", props.currentLevel);
     changeTo(props.currentLevel);
+
+    setTimeout(() => {
+      getGeoJson(props.currentLevel).then((features) => {
+        // Clear current map
+        map.svg.remove();
+
+        map = initMap(container, features, onClick);
+
+        resize(container, map.svg, map.g, transform);
+
+        coloring(map.g, dark(), props.data, props.numberToColor);
+      });
+    }, 500);
   });
 
   let map;
@@ -174,9 +192,9 @@ export default (props) => {
     map.g.selectAll("path").classed(
       "active",
       ele &&
-      function () {
-        return this.id === ele.id;
-      }
+        function () {
+          return this.id === ele.id;
+        }
     );
 
     map.g
