@@ -6,7 +6,7 @@ import style from "./InteractiveMap.module.css";
 const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
 
-const api = "https://geo.datav.aliyun.com/areas_v2/bound/{level}_full.json";
+const api = "https://kk.imlihe.com/{level}_full.json";
 
 async function getGeoJson(level) {
   const res = await fetch(
@@ -28,7 +28,7 @@ function coloring(g, dark, data, numberToColor) {
       return numberToColor(data[code]?.Total, dark);
     })
     .attr("stroke", dark ? "#262626" : "#115e59")
-    .attr("stroke-width", 0.5)
+    .attr("stroke-width", 0.1)
     .attr("opacity", 0.8);
 }
 
@@ -110,7 +110,7 @@ function getScale(ele, container) {
   const bbox = ele.getBBox();
   const widthScale = (container.clientWidth - MARGIN) / bbox.width;
   const heightScale = (container.clientHeight - MARGIN) / bbox.height;
-  return Math.min(widthScale, heightScale, 5);
+  return Math.min(widthScale, heightScale, 20);
 }
 
 export default (props) => {
