@@ -37,23 +37,15 @@ function resize(container, svg, g, transform) {
   const height = container.clientHeight;
   svg.attr("width", width).attr("height", height);
   svg.selectAll("rect").attr("width", width).attr("height", height);
-  // translate the map to center
-  if (!transform) {
-    if (window.innerWidth < 768) {
-      g.attr("transform", `translate(${width / 2}, ${height / 2}) scale(0.7)`);
-    } else {
-      g.attr("transform", `translate(${width / 2}, ${height / 2})`);
-    }
-  } else {
-    const deltaX = (container.clientWidth - transform.clientWidth) / 2;
-    const deltaY = (container.clientHeight - transform.clientHeight) / 2;
-    g.attr(
-      "transform",
-      `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
-        transform.k
-      })`
-    );
-  }
+
+  const deltaX = (container.clientWidth - transform.clientWidth) / 2;
+  const deltaY = (container.clientHeight - transform.clientHeight) / 2;
+  g.attr(
+    "transform",
+    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
+      transform.k
+    })`
+  );
 }
 
 function initMap(container, features, onClick) {
@@ -63,6 +55,7 @@ function initMap(container, features, onClick) {
   const svg = d3.select(container).append("svg");
 
   svg.attr("style", "cursor: pointer;");
+  svg.style("opacity", 0).transition().duration(500).style("opacity", 1);
 
   svg
     .append("rect")
@@ -101,16 +94,12 @@ function getCentroid(ele) {
   return [bbox.x + bbox.width / 2, bbox.y + bbox.height / 2];
 }
 
-const MARGIN = 50;
+const MARGIN = 150;
 function getScale(ele, container) {
-  if (!ele) {
-    // If is mobile: 0.7 else: 1
-    return window.innerWidth < 768 ? 0.8 : 1;
-  }
   const bbox = ele.getBBox();
   const widthScale = (container.clientWidth - MARGIN) / bbox.width;
   const heightScale = (container.clientHeight - MARGIN) / bbox.height;
-  return Math.min(widthScale, heightScale, 20);
+  return Math.min(widthScale, heightScale);
 }
 
 export default (props) => {
@@ -118,37 +107,64 @@ export default (props) => {
   const { dark } = useAppContext();
 
   console.log(props.defaultLevel);
-  const featuresPromise = getGeoJson(props.defaultLevel);
+  // const featuresPromise = getGeoJson(props.defaultLevel);
 
   onMount(() => {
-    featuresPromise.then((features) => {
-      map = initMap(container, features, onClick);
-
-      resize(container, map.svg, map.g);
-      new ResizeObserver(() =>
-        resize(container, map.svg, map.g, transform)
-      ).observe(container);
-      coloring(map.g, dark(), props.data, props.numberToColor);
-    });
+    new ResizeObserver(
+      () => map && resize(container, map.svg, map.g, transform)
+    ).observe(container);
   });
 
   // Preparation: loading data
   createEffect(() => {
-    console.log("change level", props.currentLevel);
     changeTo(props.currentLevel);
+    if (props.currentLevel % 100 > 0) {
+      // Already last level
+      console.log("Last Level");
+      return;
+    }
 
-    setTimeout(() => {
-      getGeoJson(props.currentLevel).then((features) => {
-        // Clear current map
-        map.svg.remove();
+    if (map) {
+      // Fade out current map
+      console.log("Fade out");
+      map.svg.transition().duration(500).style("opacity", 0);
+    }
 
-        map = initMap(container, features, onClick);
+    let t0 = performance.now();
 
-        resize(container, map.svg, map.g, transform);
+    getGeoJson(props.currentLevel).then((features) => {
+      setTimeout(
+        () => {
+          if (map) map.svg.remove();
 
-        coloring(map.g, dark(), props.data, props.numberToColor);
-      });
-    }, 500);
+          map = initMap(container, features, onClick);
+
+          if (!transform) {
+            transform = {
+              clientHeight: container.clientHeight,
+              clientWidth: container.clientWidth,
+            };
+          }
+
+          const fullWidth = container.clientWidth;
+          const fullHeight = container.clientHeight;
+
+          const scale = getScale(map.g.node(), container);
+
+          const c = getCentroid(map.g.node());
+
+          // Re-center
+          transform.x = fullWidth / 2 - scale * c[0];
+          transform.y = fullHeight / 2 - scale * c[1];
+          transform.k = scale;
+
+          resize(container, map.svg, map.g, transform);
+
+          coloring(map.g, dark(), props.data, props.numberToColor);
+        },
+        map ? Math.max(0, 500 - (performance.now() - t0)) : 0
+      );
+    });
   });
 
   let map;
@@ -166,11 +182,26 @@ export default (props) => {
       ele = null;
     }
 
-    changeTo(ele?.id || "china");
+    // Calculate last level, if current is 230401, last is 230400, if current is 230400, last is 230000, if current is 230000, last is "china"
+
+    let lastLevel = "china";
+
+    for (let i = 1; i < 3; i++) {
+      let a = Math.pow(100, i);
+      if (props.currentLevel % a > 0) {
+        // 230401 -> 230400
+        lastLevel = Math.floor(props.currentLevel / a) * a;
+        break;
+      }
+    }
+
+    console.log("click", ele?.id || lastLevel);
+    changeTo(ele?.id || lastLevel);
   }
 
   function changeTo(level) {
     if (!map) return;
+    if (level === props.currentLevel) return;
 
     const containerX = container.clientWidth / 2;
     const containerY = container.clientHeight / 2;
@@ -179,6 +210,8 @@ export default (props) => {
       clientWidth: container.clientWidth,
       clientHeight: container.clientHeight,
     };
+
+    console.log("change to", level);
 
     props.onChangeLevel(level);
 
