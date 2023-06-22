@@ -6,7 +6,7 @@ import style from "./InteractiveMap.module.css";
 const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
 
-const api = "https://kk.imlihe.com/{level}_full.json";
+const api = "https://npm.elemecdn.com/cn-geojson/{level}_full.json";
 
 async function getGeoJson(level) {
   const res = await fetch(
@@ -42,8 +42,7 @@ function resize(container, svg, g, transform) {
   const deltaY = (container.clientHeight - transform.clientHeight) / 2;
   g.attr(
     "transform",
-    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
-      transform.k
+    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${transform.k
     })`
   );
 }
@@ -60,7 +59,7 @@ function initMap(container, features, onClick) {
   svg
     .append("rect")
     .attr("opacity", 0)
-    .on("click", function () {
+    .on("click", function() {
       onClick();
     });
 
@@ -70,18 +69,18 @@ function initMap(container, features, onClick) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("id", function (d) {
+    .attr("id", function(d) {
       return d.properties.code || d.properties.adcode;
     })
-    .on("mouseover", function () {
+    .on("mouseover", function() {
       d3.select(this).transition().duration(150).attr("opacity", 1);
     })
-    .on("mouseout", function () {
+    .on("mouseout", function() {
       if (!this.classList.contains("active")) {
         d3.select(this).transition().duration(150).attr("opacity", 0.8);
       }
     })
-    .on("click", function () {
+    .on("click", function() {
       onClick(this);
     });
 
@@ -225,16 +224,16 @@ export default (props) => {
     map.g.selectAll("path").classed(
       "active",
       ele &&
-        function () {
-          return this.id === ele.id;
-        }
+      function() {
+        return this.id === ele.id;
+      }
     );
 
     map.g
       .selectAll("path")
       .transition()
       .duration(300)
-      .attr("opacity", function () {
+      .attr("opacity", function() {
         return this.id === ele?.id ? "1" : "0.8";
       });
 
