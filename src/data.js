@@ -2,49 +2,57 @@ import { csvParse } from "d3";
 
 export function sort(data) {
   if (!data) return [];
-  // Gives: [ { Code: 110000, Total: ... } ]
+  // Gives: [ { key: 110000, value: 123} ]
   const arr = Object.entries(data).map(([key, value]) => ({
-    Code: key,
-    ...value,
+    key,
+    value,
   }));
-  arr.sort((a, b) => b.Total - a.Total);
+  arr.sort((a, b) => b.value - a.value);
   return arr;
 }
 
-export function parser(raw) {
-  console.log("Parsing data...");
+const stats = ["total", "perCapita", "perGDP"];
 
+export function parser(raw) {
   const rawData = csvParse(raw);
 
-  const data = {};
+  const nested = {};
   // {
-  //   2023: { 110000: { Pollution A: 123, ... } },
-  //   year: { region: { Poll: ... } }
+  //    <stat>: { <year>: { min, max, data } }
+  // }
+  //
+  // data: {
+  //   <region>: number
   // }
 
-  const maxOfYear = {};
-  const minOfYear = {};
+  for (const stat of stats) {
+    nested[stat] = {};
+  }
 
   for (const row of rawData) {
     if (!row) continue;
 
-    const year = parseInt(row.Year);
-    const region = parseInt(row.Code);
-    if (!data[year]) data[year] = {};
+    const year = parseInt(row.year);
+    const region = parseInt(row.code);
 
-    data[year][region] = {};
-    for (const key in row) {
-      if (key === "Year" || key === "Code") continue;
-      const num = parseFloat(row[key]);
-      data[year][region][key] = num;
-      if (key === "Total") {
-        maxOfYear[year] = Math.max(maxOfYear[year] || num, num);
-        minOfYear[year] = Math.min(minOfYear[year] || num, num);
-      }
+    for (const stat of stats) {
+      if (!nested[stat][year]) nested[stat][year] = { data: {} };
+
+      nested[stat][year].data[region] = parseFloat(row[stat]);
     }
   }
 
-  return { data, maxOfYear, minOfYear };
+  // Calculate min, max
+
+  for (const stat of stats) {
+    for (const year in nested[stat]) {
+      const data = Object.values(nested[stat][year].data);
+      nested[stat][year].min = Math.min(...data);
+      nested[stat][year].max = Math.max(...data);
+    }
+  }
+
+  return nested;
 }
 
 export function numberToColorRaw(n, dark, max, min) {

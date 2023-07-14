@@ -4,23 +4,29 @@ import { Title } from "solid-start";
 import { createSignal, createMemo } from "solid-js";
 
 import { parser, sort, numberToColorRaw } from "@/data";
-import factor from "@/assets/factor.csv?raw";
+import factors from "@/assets/factors.csv?raw";
+import satelite from "@/assets/satelite.csv?raw";
 import Card from "@/components/Card";
 
 export default () => {
   const { t } = useAppContext();
 
   const [currentLevel, setCurrentLevel] = createSignal("china");
-  const [currentYear, setCurrentYear] = createSignal(2019);
 
-  let res = parser(factor);
+  const sources = {
+    factors: parser(factors),
+    satelite: parser(satelite),
+  };
 
-  const maxOfYear = () => res.maxOfYear[currentYear()];
-  const minOfYear = () => res.minOfYear[currentYear()];
-  const numberToColor = (n, dark) =>
-    numberToColorRaw(n, dark, maxOfYear(), minOfYear());
+  const [current, setCurrent] = createSignal({
+    year: 2019,
+    source: "factors",
+    stat: "total",
+  });
 
-  const sortedData = createMemo(() => sort(res.data[currentYear()]));
+  const res = () => sources[current().source][current().stat][current().year];
+
+  const sortedData = createMemo(() => sort(res().data));
 
   return (
     <div class="color-white flex">
@@ -30,11 +36,10 @@ export default () => {
         <Card class="p-5 absolute top-25 left-5 right-0">Properties</Card>
 
         <InteractiveMap
-          data={res.data[currentYear()]}
+          res={res()}
           defaultLevel="china"
           currentLevel={currentLevel()}
           onChangeLevel={setCurrentLevel}
-          numberToColor={numberToColor}
         />
 
         <Card class="p-5 absolute bottom-5 left-5 right-0">TIME Slider</Card>

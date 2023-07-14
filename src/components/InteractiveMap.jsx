@@ -16,16 +16,18 @@ async function getGeoJson(level) {
   return data.features;
 }
 
-function coloring(g, dark, data, numberToColor) {
+function coloring(g, dark, res) {
   if (!g) return;
+  if (!res) return;
   g.selectAll("path")
     // .attr("fill", dark ? "#525252" : "#0d9488")
     .attr("fill", (d) => {
       const code = d.properties.code;
-      if (!data[code]) {
+      if (!res.data[code]) {
         return dark ? "#525252" : "#0d9488";
       }
-      return numberToColor(data[code]?.Total, dark);
+
+      return numberToColorRaw(res.data[code], dark, res.max, res.min);
     })
     .attr("stroke", dark ? "#262626" : "#115e59")
     .attr("stroke-width", 0.1)
@@ -42,7 +44,8 @@ function resize(container, svg, g, transform) {
   const deltaY = (container.clientHeight - transform.clientHeight) / 2;
   g.attr(
     "transform",
-    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${transform.k
+    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
+      transform.k
     })`
   );
 }
@@ -59,7 +62,7 @@ function initMap(container, features, onClick) {
   svg
     .append("rect")
     .attr("opacity", 0)
-    .on("click", function() {
+    .on("click", function () {
       onClick();
     });
 
@@ -69,18 +72,18 @@ function initMap(container, features, onClick) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("id", function(d) {
+    .attr("id", function (d) {
       return d.properties.code || d.properties.adcode;
     })
-    .on("mouseover", function() {
+    .on("mouseover", function () {
       d3.select(this).transition().duration(150).attr("opacity", 1);
     })
-    .on("mouseout", function() {
+    .on("mouseout", function () {
       if (!this.classList.contains("active")) {
         d3.select(this).transition().duration(150).attr("opacity", 0.8);
       }
     })
-    .on("click", function() {
+    .on("click", function () {
       onClick(this);
     });
 
@@ -101,6 +104,12 @@ function getScale(ele, container) {
   return Math.min(widthScale, heightScale);
 }
 
+export function numberToColorRaw(n, dark, max, min) {
+  const range = max - min;
+  const percent = (n - min) / range;
+  const hue = (1 - percent) * 120;
+  return dark ? `hsla(${hue}, 50%, 60%, 0.5)` : `hsla(${hue}, 50%, 60%, 0.8)`;
+}
 export default (props) => {
   let container;
   const { dark } = useAppContext();
@@ -159,7 +168,7 @@ export default (props) => {
 
           resize(container, map.svg, map.g, transform);
 
-          coloring(map.g, dark(), props.data, props.numberToColor);
+          coloring(map.g, dark(), props.res);
         },
         map ? Math.max(0, 500 - (performance.now() - t0)) : 0
       );
@@ -169,7 +178,7 @@ export default (props) => {
   let map;
   let transform;
 
-  createEffect(() => coloring(map?.g, dark(), props.data, props.numberToColor)); // Theme
+  createEffect(() => coloring(map?.g, dark(), props.res)); // Theme
 
   function onClick(ele) {
     if (props.currentLevel === ele?.id) {
@@ -224,16 +233,16 @@ export default (props) => {
     map.g.selectAll("path").classed(
       "active",
       ele &&
-      function() {
-        return this.id === ele.id;
-      }
+        function () {
+          return this.id === ele.id;
+        }
     );
 
     map.g
       .selectAll("path")
       .transition()
       .duration(300)
-      .attr("opacity", function() {
+      .attr("opacity", function () {
         return this.id === ele?.id ? "1" : "0.8";
       });
 

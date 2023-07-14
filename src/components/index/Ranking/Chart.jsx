@@ -4,35 +4,28 @@ import "./Chart.css";
 import { createEffect, createMemo } from "solid-js";
 
 function process(propsData, currentLevel) {
-  const data = {}; // { Poll Type: { year: value, year: value } }
+  let data = [];
 
-  if (currentLevel === "china") {
-    // Sum up all region
-    for (const year in propsData) {
-      for (const region in propsData[year]) {
-        for (const poll in propsData[year][region]) {
-          if (poll === "Total") continue;
-          if (!data[poll]) data[poll] = {};
-          data[poll][year] =
-            (data[poll][year] || 0) + propsData[year][region][poll];
-        }
-      }
+  for (const year in propsData) {
+    let value;
+
+    if (currentLevel === "china") {
+      value = Object.values(propsData[year].data).reduce((a, b) => a + b);
+    } else {
+      value = propsData[year].data[currentLevel];
     }
-  } else {
-    // Only a single region
-    for (const year in propsData) {
-      for (const poll in propsData[year][currentLevel] || {}) {
-        if (poll === "Total") continue;
-        if (!data[poll]) data[poll] = {};
-        data[poll][year] = propsData[year][currentLevel][poll];
-      }
-    }
+    data.push({
+      year,
+      value,
+    });
   }
 
-  const labels = Object.keys(propsData);
-  const series = Object.values(data).map((poll) => Object.values(poll));
+  data.sort((a, b) => a.year - b.year);
 
-  return { labels, series };
+  return {
+    labels: data.map((e) => e.year),
+    series: [data.map((e) => e.value)],
+  };
 }
 
 export default (props) => {

@@ -9,7 +9,8 @@ import RankingItem from "./Ranking/RankingItem";
 import CollapseCard from "./Ranking/CollapseCard";
 import Chart from "./Ranking/Chart";
 
-import factor from "@/assets/factor.csv?raw";
+import factors from "@/assets/factors.csv?raw";
+import satelite from "@/assets/satelite.csv?raw";
 
 import { useAppContext } from "@/AppContext";
 import Switcher from "../Switcher";
@@ -23,17 +24,21 @@ export default () => {
   const [collapseId, setCollapseId] = createSignal(0);
 
   const [currentLevel, setCurrentLevel] = createSignal("china");
-  // const [currentYear, setCurrentYear] = createSignal(2019);
-  const currentYear = 2019;
 
-  let res = parser(factor);
+  const sources = {
+    factors: parser(factors),
+    satelite: parser(satelite),
+  };
 
-  const maxOfYear = () => res.maxOfYear[currentYear];
-  const minOfYear = () => res.minOfYear[currentYear];
-  const numberToColor = (n, dark) =>
-    numberToColorRaw(n, dark, maxOfYear(), minOfYear());
+  const [current, setCurrent] = createSignal({
+    year: 2019,
+    source: "factors",
+    stat: "total",
+  });
 
-  const sortedData = createMemo(() => sort(res.data[currentYear]));
+  const res = () => sources[current().source][current().stat][current().year];
+
+  const sortedData = createMemo(() => sort(res().data));
 
   return (
     <Section id="ranking">
@@ -48,20 +53,30 @@ export default () => {
           <div class="absolute top-5 flex justify-center items-center w-full">
             <Switcher
               options={[t("map.factors"), t("map.satelite")]}
-              onChange={(d) => {}}
+              onChange={(index) => {
+                setCurrent({
+                  ...current(),
+                  source: ["factors", "satelite"][index],
+                });
+              }}
             ></Switcher>
           </div>
           <InteractiveMap
             defaultLevel="china"
             currentLevel={currentLevel()}
             onChangeLevel={setCurrentLevel}
-            data={res.data[currentYear]}
-            numberToColor={numberToColor}
+            res={res()}
           />
           <div class="absolute bottom-5 flex justify-center items-center w-full">
             <Switcher
               small
               options={[t("map.total"), t("map.perCapita"), t("map.perGDP")]}
+              onChange={(index) => {
+                setCurrent({
+                  ...current(),
+                  stat: ["total", "perCapita", "perGDP"][index],
+                });
+              }}
             ></Switcher>
           </div>
         </Card>
@@ -73,20 +88,19 @@ export default () => {
             set={setCollapseId}
             title="Ranking Title"
           >
-            {/* <RankingItem name="Provi Name" unit="unit" data={114} rank={1} /> */}
             <For each={sortedData()}>
               {(row, index) => (
                 <RankingItem
-                  name={row.Code}
+                  name={row.key}
                   unit="unit"
-                  data={row.Total}
+                  data={row.value}
                   rank={index() + 1}
                   onClick={() =>
                     setCurrentLevel(
-                      currentLevel() === row.Code ? "china" : row.Code
+                      currentLevel() === row.key ? "china" : row.key
                     )
                   }
-                  active={currentLevel() === row.Code}
+                  active={currentLevel() === row.key}
                 />
               )}
             </For>
@@ -97,7 +111,10 @@ export default () => {
             set={setCollapseId}
             title="Chart Title"
           >
-            <Chart currentLevel={currentLevel()} data={res.data} />
+            <Chart
+              currentLevel={currentLevel()}
+              data={sources[current().source][current().stat]}
+            />
           </CollapseCard>
         </div>
       </div>
