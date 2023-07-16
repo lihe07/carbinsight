@@ -37,9 +37,7 @@ export default () => {
   });
 
   const res = () => sources[current().source][current().stat][current().year];
-
   const sortedData = createMemo(() => sort(res().data));
-
   return (
     <Section id="ranking">
       <div class="h-20" />
@@ -95,11 +93,7 @@ export default () => {
                   unit="unit"
                   data={row.value}
                   rank={index() + 1}
-                  onClick={() =>
-                    setCurrentLevel(
-                      currentLevel() === row.key ? "china" : row.key
-                    )
-                  }
+                  onClick={() => setCurrentLevel(row.key)}
                   active={currentLevel() === row.key}
                 />
               )}

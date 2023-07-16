@@ -1,12 +1,16 @@
 import { useAppContext } from "@/AppContext";
 import InteractiveMap from "@/components/InteractiveMap";
-import { Title } from "solid-start";
 import { createSignal, createMemo } from "solid-js";
 
 import { parser, sort, numberToColorRaw } from "@/data";
 import factors from "@/assets/factors.csv?raw";
 import satelite from "@/assets/satelite.csv?raw";
 import Card from "@/components/Card";
+import Switcher from "@/components/Switcher";
+import AllData from "@/components/map/AllData";
+import RankingItem from "@/components/index/Ranking/RankingItem";
+import { Title } from "solid-start";
+import TimeSlider from "@/components/map/TimeSlider";
 
 export default () => {
   const { t } = useAppContext();
@@ -29,25 +33,62 @@ export default () => {
   const sortedData = createMemo(() => sort(res().data));
 
   return (
-    <div class="color-white flex">
-      <Title>Carbinsight - {t("map.title")}</Title>
+    <div class="w-full">
+      <div class="color-white flex w-full">
+        <Title>Carbinsight - {t("map.title")}</Title>
 
-      <div class="h-screen pt-20 box-border w-60% relative">
-        <Card class="p-5 absolute top-25 left-5 right-0">Properties</Card>
+        <div class="h-screen pt-20 box-border w-60% relative">
+          <div class="p-5 absolute top-25 left-5 right-0 flex justify-between">
+            <Switcher
+              options={[t("map.factors"), t("map.satelite")]}
+              onChange={(index) => {
+                setCurrent({
+                  ...current(),
+                  source: ["factors", "satelite"][index],
+                });
+              }}
+            ></Switcher>
 
-        <InteractiveMap
-          res={res()}
-          defaultLevel="china"
-          currentLevel={currentLevel()}
-          onChangeLevel={setCurrentLevel}
-        />
+            <Switcher
+              small
+              options={[t("map.total"), t("map.perCapita"), t("map.perGDP")]}
+              onChange={(index) => {
+                setCurrent({
+                  ...current(),
+                  stat: ["total", "perCapita", "perGDP"][index],
+                });
+              }}
+            ></Switcher>
+          </div>
 
-        <Card class="p-5 absolute bottom-5 left-5 right-0">TIME Slider</Card>
+          <InteractiveMap
+            res={res()}
+            defaultLevel="china"
+            currentLevel={currentLevel()}
+            onChangeLevel={setCurrentLevel}
+          />
+
+          <Card class="p-5 absolute bottom-5 left-5 right-0">
+            <TimeSlider />
+          </Card>
+        </div>
+
+        <Card class="p-5 mt-25 m-5 flex-grow h-[calc(100vh-160px)] overflow-y-scroll">
+          <For each={sortedData()}>
+            {(row, index) => (
+              <RankingItem
+                name={row.key}
+                unit="unit"
+                data={row.value}
+                rank={index() + 1}
+                onClick={() => setCurrentLevel(row.key)}
+                active={currentLevel() === row.key}
+              />
+            )}
+          </For>
+        </Card>
       </div>
-
-      <Card class="p-5 mt-25 m-5 flex-grow">
-        <h2>TODO: Ranking...</h2>
-      </Card>
+      <AllData />
     </div>
   );
 };

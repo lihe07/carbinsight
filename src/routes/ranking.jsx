@@ -3,7 +3,7 @@ import Title from "@/components/Title";
 import { useAppContext } from "@/AppContext";
 import rankingRaw from "@/assets/ranking.csv?raw";
 import RankingEntry from "@/components/ranking/RankingEntry";
-import "./ranking.css";
+import "@/table.css";
 
 /** @type {string[][]} */
 let ranking = rankingRaw
