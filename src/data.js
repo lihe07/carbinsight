@@ -15,7 +15,7 @@ export function sort(data, currentLevel) {
     arr = arr.filter(
       (row) =>
         (parseInt(row.key) - currentInt).toString().length ==
-        currentLevel.match(/0/g).length
+        currentLevel.match(/0/g)?.length || 0
     );
   }
 
