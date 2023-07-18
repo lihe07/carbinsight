@@ -30,7 +30,7 @@ export default () => {
 
   const res = () => sources[current().source][current().stat][current().year];
 
-  const sortedData = createMemo(() => sort(res().data));
+  const sortedData = createMemo(() => sort(res().data, currentLevel()));
 
   return (
     <div class="w-full">
@@ -88,7 +88,7 @@ export default () => {
           </For>
         </Card>
       </div>
-      <AllData />
+      <AllData current={current()} currentLevel={currentLevel()} />
     </div>
   );
 };

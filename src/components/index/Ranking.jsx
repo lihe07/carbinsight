@@ -18,17 +18,17 @@ import { A } from "solid-start";
 
 import { parser, numberToColorRaw, sort } from "@/data";
 
+const sources = {
+  factors: parser(factors),
+  satelite: parser(satelite),
+};
+
 export default () => {
   const { t } = useAppContext();
 
   const [collapseId, setCollapseId] = createSignal(0);
 
   const [currentLevel, setCurrentLevel] = createSignal("china");
-
-  const sources = {
-    factors: parser(factors),
-    satelite: parser(satelite),
-  };
 
   const [current, setCurrent] = createSignal({
     year: 2019,
@@ -37,7 +37,7 @@ export default () => {
   });
 
   const res = () => sources[current().source][current().stat][current().year];
-  const sortedData = createMemo(() => sort(res().data));
+  const sortedData = createMemo(() => sort(res().data, currentLevel()));
   return (
     <Section id="ranking">
       <div class="h-20" />

@@ -1,12 +1,24 @@
 import { csvParse } from "d3";
 
-export function sort(data) {
+export function sort(data, currentLevel) {
   if (!data) return [];
   // Gives: [ { key: 110000, value: 123} ]
-  const arr = Object.entries(data).map(([key, value]) => ({
+  let arr = Object.entries(data).map(([key, value]) => ({
     key,
     value,
   }));
+
+  if (currentLevel === "china") {
+    arr = arr.filter((row) => parseInt(row.key) % 10000 == 0);
+  } else {
+    const currentInt = parseInt(currentLevel);
+    arr = arr.filter(
+      (row) =>
+        (parseInt(row.key) - currentInt).toString().length ==
+        currentLevel.match(/0/g).length
+    );
+  }
+
   arr.sort((a, b) => b.value - a.value);
   return arr;
 }
