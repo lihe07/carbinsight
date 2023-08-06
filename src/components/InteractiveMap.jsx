@@ -6,12 +6,17 @@ import style from "./InteractiveMap.module.css";
 const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
 
-const api = "https://npm.elemecdn.com/cn-geojson/{level}_full.json";
+const api = "https://unpkg.com/cn-geojson@1.0.1/{level}_full.json";
 
 async function getGeoJson(level) {
-  const res = await fetch(
+  let url =
     level === "china" || level === null ? china : api.replace("{level}", level)
-  );
+
+  if (level + [] === "510000") {
+    url = "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
+  }
+
+  const res = await fetch(url);
   const data = await res.json();
   return data.features;
 }

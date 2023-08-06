@@ -3,6 +3,7 @@ import Section from "../Section";
 import Title from "../Title";
 import { For } from "solid-js";
 import { csvParse } from "d3";
+import { useAppContext } from "@/AppContext";
 
 import factors from "@/assets/factors.csv?raw";
 import satelite from "@/assets/satelite.csv?raw";
@@ -18,6 +19,8 @@ const labeledSatelite = csvParse(satelite).map((row) => ({
 }));
 
 export default (props) => {
+  const { t } = useAppContext();
+
   const data = () => {
     let data;
     if (props.current.source === "satelite") {
@@ -33,7 +36,7 @@ export default (props) => {
       data = data.filter(
         (row) =>
           (row.code - current).toString().length ==
-            props.currentLevel.toString().match(/0/g).length ||
+          props.currentLevel.toString().match(/0/g).length ||
           row.code === props.currentLevel
       );
     }
@@ -59,7 +62,7 @@ export default (props) => {
           <For each={data()}>
             {(row) => (
               <tr>
-                <td>{row.code}</td>
+                <td>{t("codes." + row.code)}</td>
                 <td>{row.source}</td>
                 <td>{row.year}</td>
                 <td>{row.total}</td>
