@@ -12,9 +12,6 @@ async function getGeoJson(level) {
   let url =
     level === "china" || level === null ? china : api.replace("{level}", level)
 
-  if (level + [] === "510000") {
-    url = "https://geo.datav.aliyun.com/areas_v3/bound/510000_full.json"
-  }
 
   const res = await fetch(url);
   const data = await res.json();
