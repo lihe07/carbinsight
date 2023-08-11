@@ -6,7 +6,7 @@ import style from "./InteractiveMap.module.css";
 const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
 
-const api = "https://unpkg.com/cn-geojson@1.0.1/{level}_full.json";
+const api = "https://upkg.bwrrc.org.cn/cn-geojson@1.1.0/{level}_full.json"
 
 async function getGeoJson(level) {
   let url =
