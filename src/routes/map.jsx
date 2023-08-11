@@ -24,7 +24,7 @@ export default () => {
 
   const [current, setCurrent] = createSignal({
     year: 2019,
-    source: "satelite",
+    source: "factors",
     stat: "total",
   });
 
