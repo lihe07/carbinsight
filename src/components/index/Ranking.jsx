@@ -16,7 +16,7 @@ import { useAppContext } from "@/AppContext";
 import Switcher from "../Switcher";
 import { A } from "solid-start";
 
-import { parser, numberToColorRaw, sort } from "@/data";
+import { parser, sort } from "@/data";
 
 const sources = {
   factors: parser(factors),
@@ -37,7 +37,7 @@ export default () => {
   });
 
   const res = () => sources[current().source][current().stat][current().year];
-  const sortedData = createMemo(() => sort(res().data, currentLevel()));
+  const sortedData = createMemo(() => sort(res(), currentLevel()));
   return (
     <Section id="ranking">
       <div class="h-20" />

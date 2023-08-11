@@ -1,5 +1,15 @@
 import { csvParse } from "d3";
 
+export function extreams(data, currentLevel) {
+  data = sort(data, currentLevel)
+  if (!data.length) return {}
+
+  return {
+    max: data[0].value,
+    min: data[data.length - 1].value
+  }
+}
+
 export function sort(data, currentLevel) {
   if (!data) return [];
   // Gives: [ { key: 110000, value: 123} ]
@@ -11,11 +21,10 @@ export function sort(data, currentLevel) {
   if (currentLevel === "china") {
     arr = arr.filter((row) => parseInt(row.key) % 10000 == 0);
   } else {
-    const currentInt = parseInt(currentLevel);
+
+    const currentPrefix = currentLevel.replace(/0+$/, '')
     arr = arr.filter(
-      (row) =>
-        (parseInt(row.key) - currentInt).toString().length ==
-        currentLevel.match(/0/g)?.length || 0
+      (row) => row.key.startsWith(currentPrefix) && row.key !== currentLevel
     );
   }
 
@@ -30,7 +39,7 @@ export function parser(raw) {
 
   const nested = {};
   // {
-  //    <stat>: { <year>: { min, max, data } }
+  //    <stat>: { <year>: { <region>: 123 } }
   // }
   //
   // data: {
@@ -48,19 +57,9 @@ export function parser(raw) {
     const region = parseInt(row.code);
 
     for (const stat of stats) {
-      if (!nested[stat][year]) nested[stat][year] = { data: {} };
+      if (!nested[stat][year]) nested[stat][year] = {};
 
-      nested[stat][year].data[region] = parseFloat(row[stat]);
-    }
-  }
-
-  // Calculate min, max
-
-  for (const stat of stats) {
-    for (const year in nested[stat]) {
-      const data = Object.values(nested[stat][year].data);
-      nested[stat][year].min = Math.min(...data);
-      nested[stat][year].max = Math.max(...data);
+      nested[stat][year][region] = parseFloat(row[stat]);
     }
   }
 

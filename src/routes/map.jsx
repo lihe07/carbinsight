@@ -24,13 +24,13 @@ export default () => {
 
   const [current, setCurrent] = createSignal({
     year: 2019,
-    source: "factors",
+    source: "satelite",
     stat: "total",
   });
 
   const res = () => sources[current().source][current().stat][current().year];
 
-  const sortedData = createMemo(() => sort(res().data, currentLevel()));
+  const sortedData = createMemo(() => sort(res(), currentLevel()));
 
   return (
     <div class="w-full">

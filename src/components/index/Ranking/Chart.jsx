@@ -10,9 +10,9 @@ function process(propsData, currentLevel) {
     let value;
 
     if (currentLevel === "china") {
-      value = Object.values(propsData[year].data).reduce((a, b) => a + b);
+      value = Object.values(propsData[year]).reduce((a, b) => a + b);
     } else {
-      value = propsData[year].data[currentLevel];
+      value = propsData[year][currentLevel];
     }
     data.push({
       year,

@@ -1,7 +1,8 @@
-import { createEffect, onMount } from "solid-js";
+import { createEffect, createMemo, on, onMount } from "solid-js";
 import * as d3 from "d3";
 import { useAppContext } from "../AppContext";
 import style from "./InteractiveMap.module.css";
+import { extreams } from "@/data";
 
 const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
@@ -18,18 +19,28 @@ async function getGeoJson(level) {
   return data.features;
 }
 
-function coloring(g, dark, res) {
+function coloring(g, dark, res, max, min) {
   if (!g) return;
   if (!res) return;
+
+  console.log("Max", max, "Min", min)
+
   g.selectAll("path")
-    // .attr("fill", dark ? "#525252" : "#0d9488")
     .attr("fill", (d) => {
-      const code = d.properties.code;
-      if (!res.data[code]) {
+
+      let code = d.properties.code || d.properties.adcode;
+
+      code += []
+      if (!res[code]) {
+        // console.log("No Data for", code)
+        // console.log(typeof (code))
         return dark ? "#525252" : "#0d9488";
       }
 
-      return numberToColorRaw(res.data[code], dark, res.max, res.min);
+      // console.log("rendering", code)
+      // console.log(numberToColorRaw(res.data[code], dark, res.max, res.min))
+
+      return numberToColorRaw(res[code], dark, max, min);
     })
     .attr("stroke", dark ? "#262626" : "#115e59")
     .attr("stroke-width", 0.1)
@@ -118,6 +129,8 @@ export default (props) => {
 
   console.log(props.defaultLevel);
   // const featuresPromise = getGeoJson(props.defaultLevel);
+  //
+  const maxmin = () => extreams(props.res, props.currentLevel)
 
   onMount(() => {
     new ResizeObserver(
@@ -170,7 +183,7 @@ export default (props) => {
 
           resize(container, map.svg, map.g, transform);
 
-          coloring(map.g, dark(), props.res);
+          coloring(map.g, dark(), props.res, maxmin().max, maxmin().min);
         },
         map ? Math.max(0, 500 - (performance.now() - t0)) : 0
       );
@@ -180,7 +193,7 @@ export default (props) => {
   let map;
   let transform;
 
-  createEffect(() => coloring(map?.g, dark(), props.res)); // Theme
+  createEffect(on([dark, () => props.res], () => coloring(map?.g, dark(), props.res, maxmin().max, maxmin().min))) // Watch for theme and data source
 
   function onClick(ele) {
     if (props.currentLevel === ele?.id) {
