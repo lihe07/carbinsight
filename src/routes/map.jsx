@@ -2,7 +2,7 @@ import { useAppContext } from "@/AppContext";
 import InteractiveMap from "@/components/InteractiveMap";
 import { createSignal, createMemo } from "solid-js";
 
-import { parser, sort, numberToColorRaw } from "@/data";
+import { parser, sort } from "@/data";
 import factors from "@/assets/factors.csv?raw";
 import satelite from "@/assets/satelite.csv?raw";
 import Card from "@/components/Card";
@@ -47,7 +47,7 @@ export default () => {
                   source: ["factors", "satelite"][index],
                 });
               }}
-            ></Switcher>
+            />
 
             <Switcher
               small
@@ -58,7 +58,7 @@ export default () => {
                   stat: ["total", "perCapita", "perGDP"][index],
                 });
               }}
-            ></Switcher>
+            />
           </div>
 
           <InteractiveMap
@@ -78,7 +78,7 @@ export default () => {
             {(row, index) => (
               <RankingItem
                 name={row.key}
-                unit="unit"
+                unit="GCe10"
                 data={row.value}
                 rank={index() + 1}
                 onClick={() => setCurrentLevel(row.key)}

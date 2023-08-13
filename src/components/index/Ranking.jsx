@@ -90,7 +90,7 @@ export default () => {
               {(row, index) => (
                 <RankingItem
                   name={row.key}
-                  unit="unit"
+                  unit="GCe10"
                   data={row.value}
                   rank={index() + 1}
                   onClick={() => setCurrentLevel(row.key)}
