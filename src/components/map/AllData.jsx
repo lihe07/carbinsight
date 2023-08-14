@@ -37,7 +37,7 @@ export default (props) => {
         (row) =>
           (row.code - current).toString().length ==
           props.currentLevel.toString().match(/0/g).length ||
-          row.code === props.currentLevel
+          row.code === props.currentLevel,
       );
     }
 

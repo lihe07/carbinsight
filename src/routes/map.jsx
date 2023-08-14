@@ -9,8 +9,9 @@ import Card from "@/components/Card";
 import Switcher from "@/components/Switcher";
 import AllData from "@/components/map/AllData";
 import RankingItem from "@/components/index/Ranking/RankingItem";
-import { Title } from "solid-start";
 import TimeSlider from "@/components/map/TimeSlider";
+import DataSource from "@/components/map/DataSource";
+import { Title } from "solid-start";
 
 export default () => {
   const { t } = useAppContext();
@@ -88,6 +89,7 @@ export default () => {
           </For>
         </Card>
       </div>
+      <DataSource />
       <AllData current={current()} currentLevel={currentLevel()} />
     </div>
   );
