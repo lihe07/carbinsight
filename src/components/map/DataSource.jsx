@@ -66,7 +66,7 @@ export default () => {
             CGe10/美元 每国民生产值排放体现二氧化碳排放利用率
           </p>
         </Show>
-        <Show when={lang() === "en"}>
+        <Show when={lang() !== "zh"}>
           <p>
             The emission factors data is from the China Emission Accounts and
             Datasets (CEADS){" "}
