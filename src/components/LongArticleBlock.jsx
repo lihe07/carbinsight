@@ -17,7 +17,7 @@ function Wrapper(props) {
 
 export default (props) => {
   const navigate = useNavigate();
-  const { t } = useAppContext()
+  const { t } = useAppContext();
 
   return (
     <Wrapper noAnimation={props.noAnimation}>
@@ -42,11 +42,7 @@ export default (props) => {
                 alt={orgs[props.orgnization].name}
                 class="w-7 h-7 rounded-50%"
               />
-              <span class="ml-2">{
-                orgs[props.orgnization].name
-              }</span>
-
-
+              <span class="ml-2">{orgs[props.orgnization].name}</span>
             </p>
             <div class="flex gap-2 mt-3 absolute right-10 top-6">
               <For each={props.tags}>
@@ -57,10 +53,7 @@ export default (props) => {
                 )}
               </For>
             </div>
-
           </Show>
-
-
 
           <h1 class="text-8 my-4 tracking-wide">{props.title}</h1>
           <p class="text-5 m-0 op-70 leading-relaxed overflow-ellipsis">

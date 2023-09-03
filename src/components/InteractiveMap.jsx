@@ -7,12 +7,11 @@ import { extreams } from "@/data";
 const china =
   "https://cdnoss.kaoshixing.com/ksx_prod/485050/file/sign/20221230/1623192915.txt";
 
-const api = "https://upkg.bwrrc.org.cn/cn-geojson@1.1.0/{level}_full.json"
+const api = "https://upkg.bwrrc.org.cn/cn-geojson@1.1.0/{level}_full.json";
 
 async function getGeoJson(level) {
   let url =
-    level === "china" || level === null ? china : api.replace("{level}", level)
-
+    level === "china" || level === null ? china : api.replace("{level}", level);
 
   const res = await fetch(url);
   const data = await res.json();
@@ -23,14 +22,13 @@ function coloring(g, dark, res, max, min) {
   if (!g) return;
   if (!res) return;
 
-  console.log("Max", max, "Min", min)
+  console.log("Max", max, "Min", min);
 
   g.selectAll("path")
     .attr("fill", (d) => {
-
       let code = d.properties.code || d.properties.adcode;
 
-      code += []
+      code += [];
       if (!res[code]) {
         // console.log("No Data for", code)
         // console.log(typeof (code))
@@ -57,8 +55,9 @@ function resize(container, svg, g, transform) {
   const deltaY = (container.clientHeight - transform.clientHeight) / 2;
   g.attr(
     "transform",
-    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${transform.k
-    })`
+    `translate(${transform.x + deltaX}, ${transform.y + deltaY}) scale(${
+      transform.k
+    })`,
   );
 }
 
@@ -74,7 +73,7 @@ function initMap(container, features, onClick) {
   svg
     .append("rect")
     .attr("opacity", 0)
-    .on("click", function() {
+    .on("click", function () {
       onClick();
     });
 
@@ -84,18 +83,18 @@ function initMap(container, features, onClick) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("id", function(d) {
+    .attr("id", function (d) {
       return d.properties.code || d.properties.adcode;
     })
-    .on("mouseover", function() {
+    .on("mouseover", function () {
       d3.select(this).transition().duration(150).attr("opacity", 1);
     })
-    .on("mouseout", function() {
+    .on("mouseout", function () {
       if (!this.classList.contains("active")) {
         d3.select(this).transition().duration(150).attr("opacity", 0.8);
       }
     })
-    .on("click", function() {
+    .on("click", function () {
       onClick(this);
     });
 
@@ -130,11 +129,11 @@ export default (props) => {
   console.log(props.defaultLevel);
   // const featuresPromise = getGeoJson(props.defaultLevel);
   //
-  const maxmin = () => extreams(props.res, props.currentLevel)
+  const maxmin = () => extreams(props.res, props.currentLevel);
 
   onMount(() => {
     new ResizeObserver(
-      () => map && resize(container, map.svg, map.g, transform)
+      () => map && resize(container, map.svg, map.g, transform),
     ).observe(container);
   });
 
@@ -185,7 +184,7 @@ export default (props) => {
 
           coloring(map.g, dark(), props.res, maxmin().max, maxmin().min);
         },
-        map ? Math.max(0, 500 - (performance.now() - t0)) : 0
+        map ? Math.max(0, 500 - (performance.now() - t0)) : 0,
       );
     });
   });
@@ -193,7 +192,11 @@ export default (props) => {
   let map;
   let transform;
 
-  createEffect(on([dark, () => props.res], () => coloring(map?.g, dark(), props.res, maxmin().max, maxmin().min))) // Watch for theme and data source
+  createEffect(
+    on([dark, () => props.res], () =>
+      coloring(map?.g, dark(), props.res, maxmin().max, maxmin().min),
+    ),
+  ); // Watch for theme and data source
 
   function onClick(ele) {
     if (props.currentLevel === ele?.id) {
@@ -248,16 +251,16 @@ export default (props) => {
     map.g.selectAll("path").classed(
       "active",
       ele &&
-      function() {
-        return this.id === ele.id;
-      }
+        function () {
+          return this.id === ele.id;
+        },
     );
 
     map.g
       .selectAll("path")
       .transition()
       .duration(300)
-      .attr("opacity", function() {
+      .attr("opacity", function () {
         return this.id === ele?.id ? "1" : "0.8";
       });
 
@@ -266,7 +269,7 @@ export default (props) => {
       .duration(700)
       .attr(
         "transform",
-        `translate(${transform.x}, ${transform.y}) scale(${transform.k})`
+        `translate(${transform.x}, ${transform.y}) scale(${transform.k})`,
       );
   }
 

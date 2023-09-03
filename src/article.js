@@ -79,7 +79,7 @@ async function _parseArticle(id) {
         })
       ).html;
       return article;
-    })
+    }),
   );
 }
 

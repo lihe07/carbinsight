@@ -244,7 +244,7 @@ export default (function () {
               () => {
                 clearInterval(t.autoplayTimer);
               },
-              { once: !0 }
+              { once: !0 },
             );
       })(i),
       (function (t) {

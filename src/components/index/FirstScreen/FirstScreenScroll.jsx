@@ -25,7 +25,7 @@ export default () => {
                   top: window.innerHeight,
                   behavior: "smooth",
                 }),
-              500
+              500,
             );
 
             setTimeout(() => setTop("0%"), 1000);

@@ -12,8 +12,8 @@ export default (props) => {
           container.getBoundingClientRect().top -
           container.offsetHeight) /
           container.offsetHeight) *
-          2
-      )
+          2,
+      ),
     );
     setLeft(-50 * (1 - rate));
   }

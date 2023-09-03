@@ -1,13 +1,13 @@
 import { csvParse } from "d3";
 
 export function extreams(data, currentLevel) {
-  data = sort(data, currentLevel)
-  if (!data.length) return {}
+  data = sort(data, currentLevel);
+  if (!data.length) return {};
 
   return {
     max: data[0].value,
-    min: data[data.length - 1].value
-  }
+    min: data[data.length - 1].value,
+  };
 }
 
 export function sort(data, currentLevel) {
@@ -21,10 +21,9 @@ export function sort(data, currentLevel) {
   if (currentLevel === "china") {
     arr = arr.filter((row) => parseInt(row.key) % 10000 == 0);
   } else {
-
-    const currentPrefix = currentLevel.replace(/0+$/, '')
+    const currentPrefix = currentLevel.replace(/0+$/, "");
     arr = arr.filter(
-      (row) => row.key.startsWith(currentPrefix) && row.key !== currentLevel
+      (row) => row.key.startsWith(currentPrefix) && row.key !== currentLevel,
     );
   }
 

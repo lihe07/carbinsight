@@ -55,7 +55,7 @@ export default (props) => {
           right: 40,
           bottom: 20,
         },
-      }
+      },
     );
   }
 

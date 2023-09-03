@@ -36,7 +36,7 @@ export default (props) => {
       data = data.filter(
         (row) =>
           (row.code - current).toString().length ==
-          props.currentLevel.toString().match(/0/g).length ||
+            props.currentLevel.toString().match(/0/g).length ||
           row.code === props.currentLevel,
       );
     }

@@ -29,7 +29,7 @@ export async function parseArticle(id) {
         content: converter.makeHtml(file),
         ...article,
       };
-    })
+    }),
   );
 }
 
@@ -43,7 +43,7 @@ export async function listArticles() {
       const [id, lang, ext] = file.split(".");
       // Read the file, parse frontmatter
       const meta = yaml.loadAll(
-        await (await fs.readFile(dir + "/" + file)).toString().split("---")[1]
+        await (await fs.readFile(dir + "/" + file)).toString().split("---")[1],
       )[0];
 
       meta.date = meta.date.toLocaleDateString();
@@ -54,7 +54,7 @@ export async function listArticles() {
         file,
         ...meta,
       };
-    })
+    }),
   );
 
   return files;

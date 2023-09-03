@@ -175,7 +175,7 @@ const Right = (props) => {
             return false;
           }
           return item.tags.includes(props.category.id);
-        })
+        }),
       );
 
     console.log("reorg");

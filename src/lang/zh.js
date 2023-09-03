@@ -42,6 +42,8 @@ export default {
     total: "总量",
     perCapita: "人均",
     perGDP: "按GDP",
+    dataSource: "数据来源",
+    dataSourceDescription: "我们的数据由多家组织数据源经过处理得到",
   },
   notFound: {
     title: "找不到内容",

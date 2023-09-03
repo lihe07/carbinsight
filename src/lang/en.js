@@ -42,6 +42,8 @@ export default {
     total: "Total",
     perCapita: "Per Capita",
     perGDP: "Per GDP",
+    dataSource: "Data Source",
+    dataSourceDescription: "Our data is processed from multiple data sources",
   },
   notFound: {
     title: "Page Not Found",

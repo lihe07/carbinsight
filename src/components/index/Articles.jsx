@@ -5,7 +5,6 @@ import Title from "../../components/CenterTitle";
 
 import ArticlesCarousel from "./Articles/ArticlesCarousel";
 
-
 import { useAppContext } from "@/AppContext";
 
 export default (props) => {
@@ -13,9 +12,8 @@ export default (props) => {
   const { t, lang } = useAppContext();
 
   const withOrg = () =>
-    props.data && props.data.filter(
-      (item) => item.lang === lang() && item.orgnization
-    );
+    props.data &&
+    props.data.filter((item) => item.lang === lang() && item.orgnization);
 
   return (
     <Section>
@@ -24,12 +22,7 @@ export default (props) => {
         description={t("index.articles.description")}
       />
       <For each={withOrg()}>
-        {(item, index) => (
-          <LongArticleBlock
-            {...item}
-            reverse={index() % 2}
-          />
-        )}
+        {(item, index) => <LongArticleBlock {...item} reverse={index() % 2} />}
       </For>
       <div class="my-20"></div>
       <ArticlesCarousel

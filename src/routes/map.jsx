@@ -70,7 +70,7 @@ export default () => {
           />
 
           <Card class="p-5 absolute bottom-5 left-5 right-0">
-            <TimeSlider />
+            <TimeSlider year={current().year} />
           </Card>
         </div>
 
@@ -79,7 +79,7 @@ export default () => {
             {(row, index) => (
               <RankingItem
                 name={row.key}
-                unit="GCe10"
+                unit={current().source === "satelite" ? "GCe10" : "MT"}
                 data={row.value}
                 rank={index() + 1}
                 onClick={() => setCurrentLevel(row.key)}

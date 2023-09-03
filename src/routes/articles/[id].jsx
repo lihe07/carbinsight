@@ -3,7 +3,7 @@ import avatar from "@/assets/images/avatar.jpg";
 import { useRouteData, Title } from "solid-start";
 import { useAppContext } from "@/AppContext";
 
-import "./[id].css";
+import "@/article.css";
 
 import articleRouteData from "./[id].data";
 import { createEffect, createSignal, on } from "solid-js";
@@ -22,7 +22,7 @@ function ContentArea(props) {
         srcset=""
       />
 
-      <div innerHTML={props.data?.content} class="article-container"></div>
+      <div innerHTML={props.data?.content} class="article-container" />
     </article>
   );
 }
@@ -62,15 +62,17 @@ export default () => {
 
   const { lang } = useAppContext();
 
-  const [article, setArticle] = createSignal(null)
+  const [article, setArticle] = createSignal(null);
 
-  createEffect(on([
-    lang, data
-  ], () => {
-    if (data()) {
-      setArticle(data().find((article) => article.lang === lang()) || data()[0])
-    }
-  }))
+  createEffect(
+    on([lang, data], () => {
+      if (data()) {
+        setArticle(
+          data().find((article) => article.lang === lang()) || data()[0],
+        );
+      }
+    }),
+  );
 
   return (
     <div class="pt-20 color-white">

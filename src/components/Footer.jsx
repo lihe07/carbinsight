@@ -43,7 +43,7 @@ export default () => {
           </div>
           <p class="color-white op-20 text-center">
             <a class="color-white" href="https://beian.miit.gov.cn/">
-              京ICP备2021000000号-1
+              京ICP备2021016707号-3
             </a>
             <span> | </span>
             @2023 Carbinsight
