@@ -5,7 +5,7 @@ export default {
     ranking: {
       title: "Carbon Map of China",
       description:
-        "We are committed to putting the carbon emissions of China on a map, clearly showing the carbon emissions of each place",
+        "We are committed to provide concise carbon emission data for readers. By visualizing the abstract and tedious data to make reading more engaging, we wish to create personal connections between readers and carbon emissions in China.",
     },
     takeAction: {
       title: "Take Action",
@@ -14,11 +14,12 @@ export default {
     },
     articles: {
       title: "Articles",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description:
+        "We provide articles (and summaries) on carbon dioxide emission and global warming, we hope readers can better understand greenhouse gas emissions and global warming,",
     },
     about: {
       title: "About Us",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description: "We are the main founders of Carbinsight",
     },
     footer: {
       otherOrgs: "Other Organizations",

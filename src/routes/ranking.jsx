@@ -24,7 +24,7 @@ export default () => {
 
   return (
     <div class="pt-30 color-white max-w-300 ma px-10">
-      <SiteTitle>Carbinsight - {t("ranking.title")}</SiteTitle>
+      <SiteTitle>{`Carbinsight - ${t("ranking.title")}`}</SiteTitle>
 
       <Title
         title={t("ranking.title")}

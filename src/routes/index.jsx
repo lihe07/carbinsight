@@ -18,7 +18,7 @@ export default (props) => {
   const { t } = useAppContext();
   return (
     <div class="overflow-hidden">
-      <Title>Carbinsight - {t("index.title")}</Title>
+      <Title>{`Carbinsight - ${t("index.title")}`}</Title>
       <Meta name="description" content="Carbinsight" />
       <Meta name="keywords" content="" />
 

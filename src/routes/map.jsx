@@ -36,7 +36,7 @@ export default () => {
   return (
     <div class="w-full">
       <div class="color-white flex w-full">
-        <Title>Carbinsight - {t("map.title")}</Title>
+        <Title>{`Carbinsight - ${t("map.title")}`}</Title>
 
         <div class="h-screen pt-20 box-border w-60% relative">
           <div class="p-5 absolute top-25 left-5 right-0 flex justify-between">

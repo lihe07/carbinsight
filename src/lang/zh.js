@@ -6,7 +6,7 @@ export default {
     ranking: {
       title: "全国碳地图",
       description:
-        "我们致力于将全国碳排放量集于一张地图上，清晰的展现出各地的碳排放量",
+        "我们致力于将枯燥的数据数据简洁地呈现给读者，使读者和碳排放之间建立个人联系。并将抽象枯燥的数据视图化，使得阅读更加轻松有趣。",
     },
     takeAction: {
       title: "采取行动",
@@ -14,11 +14,12 @@ export default {
     },
     articles: {
       title: "文章",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description:
+        "我们提供了介绍二氧化碳排放和全球变暖的文章（和概括），希望读者能更好的理解温室气体和全球变暖。",
     },
     about: {
       title: "关于我们",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description: "我们是Carbinsight项目的发起者",
     },
     footer: {
       otherOrgs: "其他组织",
