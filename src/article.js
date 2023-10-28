@@ -37,7 +37,7 @@ function checkPage(page) {
     mapPage(page);
     return true;
   } catch (e) {
-    console.log("Invalid page", page);
+    // console.log("Invalid page", page);
     return false;
   }
 }
