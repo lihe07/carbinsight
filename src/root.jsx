@@ -28,9 +28,12 @@ export default function Root() {
           httpEquiv="Content-Security-Policy"
           content="script-src 'none'"
         />
-        <script defer data-domain="carbinsight.com" src="https://anna.bwrrc.org.cn/js/script.js"></script>
       </Head>
       <Body>
+        <noscript>
+          <img src="https://anna.bwrrc.org.cn/ingress/c00f8a1e-93a8-49c9-bca5-f7201bb54800/pixel.gif" />
+        </noscript>
+        <script defer src="https://anna.bwrrc.org.cn/ingress/c00f8a1e-93a8-49c9-bca5-f7201bb54800/script.js"></script>
         <div class="dark:bg-true-gray-9 light:bg-teal-8 transition-colors-300 min-h-screen font-sans">
           <ErrorBoundary>
             <AppContextProvider>
