@@ -34,8 +34,8 @@ function makeClient() {
 function checkPage(page) {
   // Check if page has all required properties
   try {
-    mapPage(page);
-    return true;
+    const map = mapPage(page);
+    return !map.tags.includes("todo")
   } catch (e) {
     // console.log("Invalid page", page);
     return false;
