@@ -8,10 +8,6 @@ const orgs = [
     name: "Green Lens",
     logo: "https://lms.d.zhan.com/zhanlms/addon_homework/2023/05/3079502646584e64f026/gl.jpg",
   },
-  {
-    name: "<empty>",
-    logo: "https://via.placeholder.com/150",
-  },
 ];
 
 const OrgCard = (props) => {
